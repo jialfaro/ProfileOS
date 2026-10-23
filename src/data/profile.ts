@@ -8,7 +8,7 @@ export interface Experience {
   endDate: string;
   location: string;
   domain: "Banca & Finanzas" | "Seguros" | "Educación" | "Consultoría";
-  specialties: ("API Governance" | "Event-Driven" | "Cloud-Native" | "Core Banking" | "Liderazgo")[];
+  specialties: ("API Governance" | "Event-Driven" | "Cloud-Native" | "Core Banking" | "Liderazgo" | "Enterprise Architecture")[];
   technologies: string[];
   summary: string;
   bulletPoints: {
@@ -36,8 +36,18 @@ export interface Certification {
 
 export interface CandidateProfile {
   name: string;
+  fullName: string;
+  preferredName: string;
   title: string;
   location: string;
+  contact: {
+    email: string;
+    phone: string;
+    linkedin: string;
+    github: string;
+    location: string;
+  };
+  avatarUrl: string;
   verifiedSummary: string;
   coreCompetencies: {
     category: string;
@@ -51,149 +61,205 @@ export interface CandidateProfile {
 
 export const PROFILE_DATA: CandidateProfile = {
   name: "Alexis Alfaro Salazar",
-  title: "Arquitecto de TI & Soluciones Cloud Senior",
+  fullName: "Jaime Ivan Alexis Alfaro Salazar",
+  preferredName: "Alexis",
+  title: "Arquitecto de Soluciones Sr / Gobierno de APIs & Integración",
   location: "Lima, Perú",
+  contact: {
+    email: "jaimealfarosalazar@gmail.com",
+    phone: "+51 974 221 535",
+    linkedin: "https://www.linkedin.com/in/jaime-ivan-alexis-a-2361a1130",
+    github: "https://github.com/jialfaro",
+    location: "Lima, Perú"
+  },
+  avatarUrl: "/alexis-avatar.png",
   verifiedSummary:
-    "Arquitecto de TI con más de 7 años de experiencia diseñando y gobernando arquitecturas empresariales, de integración y cloud-native en el sector bancario, financiero y asegurador. Especialista en gobierno del ciclo de vida de APIs (API First/API Led), arquitecturas dirigidas por eventos (EDA), diseño guiado por el dominio (DDD) y microservicios resilientes sobre AWS y Azure. Demostrada capacidad en liderazgo técnico y gobierno arquitectónico de múltiples squads de ingeniería (~30 ingenieros), alineando decisiones con marcos BIAN, TOGAF y modelos C4.",
+    "Arquitecto de Soluciones Sr con más de 7 años de experiencia liderando la definición e implementación de arquitecturas de integración empresarial en el sector financiero y bancario. Especialista en diseño de APIs, microservicios, arquitecturas orientadas a eventos (EDA), gobierno de integraciones y plataformas cloud-native (Azure/AWS/GCP). Expertise comprobado en Domain-Driven Design (DDD), patrones de resiliencia (Circuit Breaker, Retry, Bulkhead), seguridad bancaria de APIs (OAuth2/OIDC, mTLS, JWT) y modelos de gobierno API First / API Led. Experiencia en entornos híbridos y multicloud, con marco BIAN v13 para modelado formal de capacidades bancarias. Liderazgo técnico demostrado en acompañamiento de squads de ingeniería (~30 ingenieros) y alineamiento con arquitectura empresarial (TOGAF, C4 Model, ArchiMate), seguridad y cumplimiento regulatorio.",
   coreCompetencies: [
     {
-      category: "Gobierno & Arquitectura Empresarial",
-      skills: ["API Governance", "API First / API Led", "DDD", "BIAN Framework", "TOGAF", "ArchiMate", "C4 Model", "Event-Driven Architecture (EDA)"]
+      category: "Gobierno de Integración & Frameworks",
+      skills: ["BIAN v13 (Capacidades Bancarias)", "API Governance", "API First / API Led", "TOGAF", "ArchiMate", "Modelo C4", "DDD (Bounded Contexts)"]
     },
     {
-      category: "Cloud & Contenedores",
-      skills: ["AWS (Lambda, SQS/SNS, API Gateway)", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Cloud-Native Architecture"]
+      category: "APIs, Servicios & Gestión",
+      skills: ["Apigee", "Azure API Management (APIM)", "RESTful APIs", "GraphQL", "OpenAPI / Swagger", "iPaaS", "BFF Pattern"]
     },
     {
-      category: "Integración & Seguridad de APIs",
-      skills: ["Apigee", "Azure APIM", "Apache Kafka", "OAuth2", "JWT", "mTLS", "JBoss Fuse", "BFF (Backend For Frontend)"]
+      category: "Mensajería, Eventos & Resiliencia",
+      skills: ["Apache Kafka", "AWS SQS/SNS", "RabbitMQ", "Event-Driven Architecture (EDA)", "Circuit Breaker", "Bulkhead", "Retry/Timeout", "CQRS / Event Sourcing"]
     },
     {
-      category: "Desarrollo & Backend",
-      skills: ["Java", "Spring Boot (Hexagonal/Clean Arch)", "Node.js", "Core Banking (Mambu)", "Microservicios Resilientes"]
+      category: "Cloud, DevOps & Infraestructura",
+      skills: ["AWS", "Azure", "GCP", "Terraform", "Docker", "Kubernetes", "CI/CD (GitLab CI, Azure DevOps, Jenkins)", "Cloud-Native 12-Factor"]
     },
     {
-      category: "Observabilidad & SRE",
-      skills: ["Dynatrace", "ELK Stack", "OpenTelemetry", "Resiliencia (Circuit Breaker, Retries)"]
+      category: "Seguridad & Zero-Trust",
+      skills: ["OAuth2 / OIDC", "mTLS (Mutual TLS)", "JWT", "API Keys", "RBAC / IAM", "OWASP", "Zero Trust", "DevSecOps"]
+    },
+    {
+      category: "Observabilidad, APM & SRE",
+      skills: ["Dynatrace", "ELK Stack", "OpenTelemetry", "Prometheus", "Grafana", "AWS CloudWatch", "SLO / SLA Monitoring"]
+    },
+    {
+      category: "Desarrollo, Backend & Core",
+      skills: ["Java (Spring Boot / Hexagonal)", "Kotlin", "Node.js", "Python", "Swift", "Core Banking (Mambu)", "Microservicios"]
+    },
+    {
+      category: "Bases de Datos",
+      skills: ["PostgreSQL", "Oracle", "SQL Server", "MySQL", "DynamoDB", "Redis", "Cosmos DB"]
+    },
+    {
+      category: "IA Aplicada a Ingeniería",
+      skills: ["Azure OpenAI", "AWS Bedrock / SageMaker", "Agentic AI", "Análisis Predictivo de Logs & Troubleshooting"]
     }
   ],
   experiences: [
     {
       id: "tcs-bcp",
-      role: "Arquitecto Tecnológico / Gobierno de APIs",
+      role: "Arquitecto de Soluciones / Arquitecto Tecnológico / Gobierno de APIs",
       company: "TCS Perú",
       client: "BCP (Banco de Crédito del Perú)",
-      period: "Noviembre 2024 – Actualidad",
-      startDate: "2024-11",
+      period: "Septiembre 2024 – Actualidad",
+      startDate: "2024-09",
       endDate: "Actualidad",
       location: "Lima, Perú (Híbrido)",
       domain: "Banca & Finanzas",
-      specialties: ["API Governance", "Event-Driven", "Cloud-Native"],
-      technologies: ["Apigee", "Azure APIM", "Apache Kafka", "OAuth2", "JWT", "mTLS", "Dynatrace", "ELK", "BIAN"],
-      summary: "Gobierno transversal del ciclo de vida de APIs y eventos financieros para el banco líder de Perú.",
+      specialties: ["API Governance", "Event-Driven", "Cloud-Native", "Enterprise Architecture"],
+      technologies: ["BIAN v13", "Apigee", "Azure APIM", "Apache Kafka", "OAuth2/OIDC", "mTLS", "JWT", "Dynatrace", "ELK", "OpenAPI"],
+      summary: "Gobierno transversal del modelo de integración, ciclo de vida de APIs y eventos financieros para el banco líder de Perú.",
       bulletPoints: [
         {
-          action: "Definí y establecí lineamientos de gobierno",
-          scope: "para el ciclo de vida completo de APIs y eventos asíncronos en plataformas Apigee y Azure APIM",
-          impact: "estandarizando contratos OpenAPI y políticas corporativas de versionamiento y backward compatibility",
-          skills: ["Apigee", "Azure APIM", "API Governance", "OpenAPI"]
+          action: "Apliqué el marco BIAN v13",
+          scope: "para el diseño, modelado de capacidades de negocio y mapeo de contratos de integración",
+          impact: "facilitando la interoperabilidad estandarizada entre el core bancario y los sistemas satélite",
+          skills: ["BIAN v13", "Estandarización Bancaria", "OpenAPI"]
         },
         {
-          action: "Diseñé esquemas de seguridad de grado bancario",
-          scope: "con autenticación y autorización mediante OAuth2, tokens JWT federados y mTLS",
-          impact: "asegurando la interoperabilidad con canales internos y ecosistemas de terceros regulados",
-          skills: ["OAuth2", "JWT", "mTLS", "Seguridad"]
+          action: "Definí e implementé el modelo de Gobierno de Integración corporativo",
+          scope: "estableciendo principios, políticas, modelos de gobierno API First / API Led y ciclo de vida de APIs y eventos (design, build, publish, retire)",
+          impact: "asegurando consistencia, reusabilidad de servicios y cumplimiento con la estrategia de nube del banco",
+          skills: ["API Governance", "API First / Led", "Ciclo de Vida"]
         },
         {
-          action: "Implanté estándares de observabilidad y trazabilidad distribuida",
-          scope: "integrando instrumentación con Dynatrace y ELK Stack en pipelines de microservicios y gateways",
-          impact: "garantizando visibilidad end-to-end de transacciones financieras críticas y SLA de respuesta",
-          skills: ["Dynatrace", "ELK", "Observabilidad"]
+          action: "Goberné y administré plataformas API Management (Apigee y Azure APIM)",
+          scope: "configurando políticas de seguridad bancaria, throttling, monetización, analytics y acceso basado en scopes",
+          impact: "protegiendo los activos digitales mediante esquemas OAuth2, JWT federados, mTLS y API Keys",
+          skills: ["Apigee", "Azure APIM", "OAuth2", "mTLS", "Seguridad"]
+        },
+        {
+          action: "Diseñé arquitecturas de integración de alta complejidad",
+          scope: "en modalidades síncronas, asíncronas, tiempo real, eventos (Kafka) y procesamiento batch/MFT",
+          impact: "acompañando técnicamente a squads de desarrollo en la adopción de patrones de resiliencia y prácticas DevSecOps",
+          skills: ["Kafka", "EDA", "DevSecOps", "Microservicios"]
+        },
+        {
+          action: "Implanté observabilidad y monitoreo avanzado de APIs",
+          scope: "con Dynatrace, ELK Stack y dashboards de negocio para tracking de latencia, errores y volumen de consumo",
+          impact: "garantizando visibilidad de transacciones críticas y cumplimiento estricto de SLAs",
+          skills: ["Dynatrace", "ELK", "Observabilidad", "SRE"]
         }
       ],
       architectureDecisions: [
-        "Adopción de BIAN Service Domains para estandarización de contratos de banca abierta",
-        "Implementación de arquitectura zero-trust con validación mTLS en gateways perimetrales",
+        "Adopción de BIAN v13 Service Domains para estandarización de contratos de banca abierta",
+        "Implementación de arquitectura Zero-Trust con validación mTLS obligatoria en gateways perimetrales",
         "Estrategia de desacoplamiento de canales mediante eventos de dominio en Apache Kafka"
       ]
     },
     {
       id: "om-tech",
-      role: "Arquitecto de Software / Especialista AWS Sr",
+      role: "Arquitecto de Soluciones / Arquitecto de Software / Especialista AWS Sr",
       company: "OM Technology Group",
-      period: "Febrero 2024 – Febrero 2025",
+      period: "Febrero 2024 – Agosto 2024",
       startDate: "2024-02",
-      endDate: "2025-02",
+      endDate: "2024-08",
       location: "Lima, Perú",
       domain: "Banca & Finanzas",
       specialties: ["Core Banking", "Cloud-Native", "Event-Driven"],
-      technologies: ["AWS", "Mambu", "Java", "Spring Boot", "Apache Kafka", "AWS SQS/SNS", "Terraform", "Docker", "DDD"],
-      summary: "Diseño e implementación de arquitectura de integración desacoplada sobre Mambu Core Banking y servicios AWS.",
+      technologies: ["Mambu", "AWS", "Java 17", "Spring Boot", "Apache Kafka", "AWS SQS/SNS", "Terraform", "Docker", "DDD", "BIAN v13"],
+      summary: "Diseño y gobierno de arquitectura de integración desacoplada para soluciones financieras sobre Core Banking SaaS Mambu y AWS.",
       bulletPoints: [
         {
-          action: "Diseñé la arquitectura de microservicios hexagonal",
-          scope: "empleando Java 17 y Spring Boot alineados a principios de Domain-Driven Design (DDD)",
-          impact: "para módulos críticos de cuentas, onboarding digital de clientes y pasarela de pagos transaccionales",
-          skills: ["Java", "Spring Boot", "DDD", "Arquitectura Hexagonal"]
+          action: "Diseñé la arquitectura orientada a dominio (DDD) y microservicios hexagonales",
+          scope: "empleando Java 17 y Spring Boot, definiendo Bounded Contexts para pagos, onboarding de clientes y cuentas",
+          impact: "incorporando patrones de resiliencia (Circuit Breaker, Retry, Timeout, Bulkhead) para alta tolerancia a fallos",
+          skills: ["Java 17", "Spring Boot", "DDD", "Arquitectura Hexagonal", "Resiliencia"]
         },
         {
-          action: "Construí el pipeline de sincronización asíncrona",
-          scope: "con Apache Kafka y AWS SQS/SNS para procesar eventos emitidos por el core SaaS Mambu",
-          impact: "desacoplando el procesamiento transaccional del almacenamiento analítico y notificaciones",
-          skills: ["Mambu", "Kafka", "AWS SQS/SNS", "Event-Driven"]
+          action: "Diseñé la arquitectura Event-Driven distribuida",
+          scope: "utilizando Apache Kafka (pub/sub), AWS SQS y SNS para procesamiento transaccional de alto volumen",
+          impact: "garantizando consistencia eventual, cero pérdida de eventos bancarios y desacoplamiento con el core Mambu",
+          skills: ["Mambu", "Kafka", "AWS SQS/SNS", "EDA"]
         },
         {
-          action: "Automatizó el aprovisionamiento de infraestructura cloud",
-          scope: "mediante Terraform y contenedores Docker en AWS",
-          impact: "asegurando reproducibilidad de ambientes (Dev, Staging, Prod) y acelerando despliegues CI/CD",
-          skills: ["Terraform", "Docker", "AWS", "IaC"]
+          action: "Alineé servicios bajo marco BIAN v13 y contratos OpenAPI",
+          scope: "definiendo el modelo de eventos, versionamiento de APIs RESTful y gobierno a través de Apigee y Azure APIM",
+          impact: "homologando contratos de integración y simplificando la conexión con sistemas satélite",
+          skills: ["BIAN v13", "OpenAPI", "Apigee", "Azure APIM"]
+        },
+        {
+          action: "Automatizó infraestructura como código (IaC) e incorporó IA",
+          scope: "mediante Terraform y Docker en AWS, utilizando IA para análisis predictivo de logs y troubleshooting automatizado",
+          impact: "optimizando la detección proactiva de incidencias y reduciendo el tiempo de despliegue de ambientes",
+          skills: ["Terraform", "Docker", "AWS", "IA Generativa"]
         }
       ],
       architectureDecisions: [
-        "Patrón Outbox transaccional para garantizar consistencia eventual entre microservicios y Mambu",
-        "Aislamiento de dominio mediante contextos delimitados (Bounded Contexts) en Spring Boot"
+        "Patrón Transactional Outbox para garantizar consistencia eventual sin bloqueo transaccional hacia Mambu",
+        "Aislamiento riguroso de Bounded Contexts en Spring Boot para permitir escalado independiente de módulos de pago"
       ]
     },
     {
       id: "rimac-seguros",
-      role: "Arquitecto de Solución Sr – Líder Técnico",
+      role: "Arquitecto de Soluciones Sr – Líder Técnico",
       company: "Rímac Seguros y Reaseguros",
       period: "Julio 2023 – Enero 2024",
       startDate: "2023-07",
       endDate: "2024-01",
       location: "Lima, Perú",
       domain: "Seguros",
-      specialties: ["Liderazgo", "API Governance", "Cloud-Native"],
-      technologies: ["BFF Pattern", "JBoss Fuse", "C4 Model", "TOGAF", "ArchiMate", "AWS", "Microservicios"],
+      specialties: ["Liderazgo", "API Governance", "Cloud-Native", "Enterprise Architecture"],
+      technologies: ["BFF Pattern", "JBoss Fuse", "C4 Model", "TOGAF", "ArchiMate", "AWS", "Microservicios", "Dynatrace"],
       summary: "Gobierno arquitectónico de múltiples squads (~30 ingenieros) y diseño de capa BFF para canales de aseguramiento.",
       bulletPoints: [
         {
-          action: "Ejercí el gobierno y liderazgo arquitectónico",
-          scope: "de squads multidisciplinarios sumando ~30 ingenieros de software, analistas y DevOps",
-          impact: "guiando la toma de decisiones técnicas, revisiones de diseño (ADRs) y calidad de código",
-          skills: ["Liderazgo Técnico", "Gobierno de Squads", "Code Review"]
+          action: "Ejercí el gobierno arquitectónico y liderazgo técnico de squads",
+          scope: "coordinando a ~30 ingenieros, estableciendo estándares técnicos y liderando comités de revisión arquitectónica (ARB)",
+          impact: "asegurando calidad técnica, cumplimiento de lineamientos de seguridad y reducción de deuda técnica en entregables",
+          skills: ["Liderazgo Técnico", "ARB", "Gobierno de Squads", "Code Review"]
         },
         {
-          action: "Modelé arquitecturas de referencia y diagramas formales",
-          scope: "utilizando C4 Model, ArchiMate y TOGAF para sistemas de cotización y emisión de pólizas",
-          impact: "estableciendo comunicación clara y homologada entre stakeholders de negocio y equipos de ingeniería",
-          skills: ["C4 Model", "ArchiMate", "TOGAF"]
+          action: "Diseñé arquitecturas desacopladas y de alta concurrencia basadas en DDD",
+          scope: "estableciendo Bounded Contexts y contratos de integración para sistemas críticos de cotización y emisión de pólizas",
+          impact: "optimizando el desacoplamiento entre canales digitales y buses de integración empresarial (JBoss Fuse)",
+          skills: ["DDD", "JBoss Fuse", "Integración Empresarial"]
         },
         {
-          action: "Diseñé capas Backend-For-Frontend (BFF)",
-          scope: "orquestando servicios legados en JBoss Fuse con nuevas APIs REST en la nube",
-          impact: "optimizando los tiempos de respuesta y payloads para las aplicaciones web y móviles de clientes",
-          skills: ["BFF Pattern", "JBoss Fuse", "Integración Legada"]
+          action: "Implementé el patrón Backend-For-Frontend (BFF)",
+          scope: "para optimizar el consumo de servicios por canales web y móviles de asegurados",
+          impact: "minimizando la latencia y la sobrecarga de payloads en conexiones móviles",
+          skills: ["BFF Pattern", "Optimización de APIs", "Mobile Experience"]
+        },
+        {
+          action: "Modelé arquitecturas empresariales formales",
+          scope: "empleando TOGAF, ArchiMate y Modelo C4 (Contexto, Contenedor, Componente)",
+          impact: "unificando la comprensión técnica entre stakeholders de negocio, seguridad y equipos de desarrollo",
+          skills: ["TOGAF", "ArchiMate", "C4 Model"]
+        },
+        {
+          action: "Implementé monitoreo y trazabilidad distribuida con IA",
+          scope: "mediante Dynatrace, incorporando análisis predictivo de fallas para mejorar la observabilidad en ambientes productivos",
+          impact: "reduciendo el tiempo medio de resolución (MTTR) de incidentes en producción",
+          skills: ["Dynatrace", "Observabilidad", "IA Predictiva"]
         }
       ],
       architectureDecisions: [
-        "Implementación del patrón Strangler Fig para migración gradual de monoliths en JBoss hacia microservicios",
-        "Estandarización de Architecture Decision Records (ADRs) en repositorios Git corporativos"
+        "Adopción del patrón Strangler Fig para migración progresiva de componentes heredados en JBoss hacia microservicios AWS",
+        "Estandarización de Architecture Decision Records (ADRs) versionados en Git para trazabilidad de decisiones técnicas"
       ]
     },
     {
       id: "laureate",
-      role: "Arquitecto de Solución Sr",
+      role: "Arquitecto de Soluciones Sr",
       company: "Laureate Perú",
       period: "Enero 2022 – Junio 2023",
       startDate: "2022-01",
@@ -201,26 +267,32 @@ export const PROFILE_DATA: CandidateProfile = {
       location: "Lima, Perú",
       domain: "Educación",
       specialties: ["Cloud-Native", "API Governance"],
-      technologies: ["AWS", "Azure", "Microservicios", "REST APIs", "Docker", "Eventos"],
-      summary: "Arquitectura híbrida cloud (AWS/Azure) para modernización de servicios académicos y de matriculación.",
+      technologies: ["AWS", "Azure", "Microservicios", "REST APIs", "Docker", "OWASP", "SOLID"],
+      summary: "Arquitectura híbrida cloud (AWS + Azure) para modernización de servicios académicos y de matriculación masiva.",
       bulletPoints: [
         {
-          action: "Diseñé soluciones de integración cloud híbrida",
-          scope: "combinando capacidades de cómputo y bases de datos en AWS y Microsoft Azure",
-          impact: "para soportar picos estacionales de alta concurrencia durante procesos masivos de matrícula universitaria",
+          action: "Diseñé la arquitectura cloud híbrida AWS + Azure",
+          scope: "combinando recursos de cómputo elástico y bases de datos para plataformas de autoservicio y matrícula masiva",
+          impact: "soportando picos de alta concurrencia durante procesos semestrales sin degradación de servicio",
           skills: ["AWS", "Azure", "Cloud Híbrido", "Alta Concurrencia"]
         },
         {
-          action: "Definí la arquitectura de microservicios orientada a APIs",
-          scope: "desacoplando el sistema de información estudiantil (SIS) de los portales de autoservicio",
-          impact: "reduciendo dependencias rígidas y habilitando despliegues independientes por facultad",
-          skills: ["Microservicios", "REST APIs", "Modernización"]
+          action: "Diseñé soluciones orientadas a dominio (DDD) y microservicios desacoplados",
+          scope: "integrando el sistema core de información estudiantil (SIS) mediante APIs RESTful de alto volumen",
+          impact: "aplicando seguridad por diseño bajo lineamientos OWASP y patrones de resiliencia (Retry, Timeout)",
+          skills: ["Microservicios", "DDD", "OWASP", "Resiliencia"]
+        },
+        {
+          action: "Establecí estándares técnicos y revisión de código",
+          scope: "bajo principios SOLID, incorporando IA para automatización de pruebas y optimización de calidad de software",
+          impact: "elevando la cobertura de testing y la estabilidad de los releases",
+          skills: ["SOLID", "Code Review", "Calidad", "IA"]
         }
       ]
     },
     {
       id: "mibanco",
-      role: "Arquitecto de Solución Sr",
+      role: "Arquitecto de Soluciones Sr",
       company: "Softnet / Mibanco",
       period: "Mayo 2021 – Diciembre 2021",
       startDate: "2021-05",
@@ -228,20 +300,32 @@ export const PROFILE_DATA: CandidateProfile = {
       location: "Lima, Perú",
       domain: "Banca & Finanzas",
       specialties: ["Core Banking", "API Governance"],
-      technologies: ["Java", "Spring Boot", "Microservicios", "OAuth2", "Docker", "Swagger"],
-      summary: "Modernización de servicios bancarios de microfinanzas y préstamos comerciales.",
+      technologies: ["Azure", "Java", "Spring Boot", "Microservicios", "OAuth2.0", "Docker", "DDD", "Circuit Breaker"],
+      summary: "Diseño de arquitectura Azure para plataforma bancaria de monitoreo y servicios de microfinanzas.",
       bulletPoints: [
         {
-          action: "Diseñé servicios de backend para originación de microcréditos",
-          scope: "con arquitecturas desacopladas y contratos REST documentados en Swagger/OpenAPI",
-          impact: "facilitando la integración ágil de canales de evaluación de riesgo y validación biométrica",
-          skills: ["Spring Boot", "Microfinanzas", "OpenAPI"]
+          action: "Diseñé la arquitectura en Azure para monitoreo empresarial bancario",
+          scope: "con microservicios desacoplados y modelado de dominios bancarios bajo Domain-Driven Design (DDD)",
+          impact: "habilitando integraciones síncronas y asíncronas entre sistemas core bancarios y plataformas externas",
+          skills: ["Azure", "DDD", "Microservicios", "Arquitectura Bancaria"]
+        },
+        {
+          action: "Implementé patrones de resiliencia y seguridad bancaria",
+          scope: "incorporando Circuit Breaker, Retry y esquemas de autenticación OAuth2.0 con control de acceso RBAC",
+          impact: "asegurando tolerancia a fallos en transacciones críticas y cumplimiento normativo",
+          skills: ["OAuth2.0", "RBAC", "Circuit Breaker", "Seguridad"]
+        },
+        {
+          action: "Desplegué trazabilidad centralizada y análisis transaccional con IA",
+          scope: "para soporte a la detección de anomalías en el comportamiento de transacciones de microfinanzas",
+          impact: "optimizando la supervisión operativa y la detección de cuellos de botella",
+          skills: ["Trazabilidad", "IA", "Microfinanzas"]
         }
       ]
     },
     {
       id: "indra",
-      role: "Líder Técnico",
+      role: "Arquitecto de Soluciones / Líder Técnico",
       company: "Indra",
       period: "Febrero 2020 – Abril 2021",
       startDate: "2020-02",
@@ -249,20 +333,26 @@ export const PROFILE_DATA: CandidateProfile = {
       location: "Lima, Perú",
       domain: "Consultoría",
       specialties: ["Liderazgo", "Cloud-Native"],
-      technologies: ["Java", "Spring Boot", "Node.js", "Docker", "CI/CD", "GitLab"],
-      summary: "Liderazgo técnico de equipos de entrega para proyectos corporativos de transformación digital.",
+      technologies: ["Java", "Spring Boot", "Node.js", "Docker", "CI/CD", "OWASP", "DDD"],
+      summary: "Liderazgo técnico y arquitectura de soluciones móviles integradas a plataformas empresariales.",
       bulletPoints: [
         {
-          action: "Coordiné técnicamente el equipo de desarrollo",
-          scope: "asegurando la adherencia a estándares de ingeniería, testing automatizado y pipelines CI/CD",
-          impact: "cumpliendo cronogramas de entrega con cero defectos críticos en puestas a producción",
-          skills: ["Liderazgo", "CI/CD", "Calidad"]
+          action: "Diseñé la arquitectura modular desacoplada basada en servicios",
+          scope: "para aplicaciones móviles integradas a plataformas corporativas mediante consumo de APIs empresariales",
+          impact: "estableciendo controles de seguridad OWASP y aplicando principios de modularización DDD",
+          skills: ["Soluciones Móviles", "APIs Empresariales", "OWASP", "DDD"]
+        },
+        {
+          action: "Implementé pipelines de integración y despliegue continuo (CI/CD)",
+          scope: "automatizando la infraestructura cloud y estandarizando los flujos de entrega",
+          impact: "acelerando los ciclos de release con altos estándares de calidad de software",
+          skills: ["CI/CD", "Automatización", "Cloud"]
         }
       ]
     },
     {
       id: "experis-rimac",
-      role: "Full Stack Developer",
+      role: "Full Stack Developer (Proyecto API Pagos)",
       company: "Experis / Rímac Seguros",
       period: "Enero 2019 – Enero 2020",
       startDate: "2019-01",
@@ -270,14 +360,20 @@ export const PROFILE_DATA: CandidateProfile = {
       location: "Lima, Perú",
       domain: "Seguros",
       specialties: ["Cloud-Native", "Event-Driven"],
-      technologies: ["Node.js", "AWS API Gateway", "AWS Lambda", "AWS SQS", "DynamoDB"],
-      summary: "Construcción serverless de la API transaccional de pagos de pólizas y recaudación.",
+      technologies: ["Node.js", "AWS API Gateway", "AWS Lambda", "AWS SQS", "DynamoDB", "Serverless"],
+      summary: "Construcción serverless de la API transaccional de pagos de pólizas, cobros recurrentes y recaudación.",
       bulletPoints: [
         {
-          action: "Implementé microservicios serverless en Node.js y AWS Lambda",
-          scope: "integrando pasarelas de pago externas con colas AWS SQS para recaudación diferida",
-          impact: "asegurando tolerancia a fallos y procesamiento ordenado de transacciones financieras",
-          skills: ["Node.js", "AWS Lambda", "AWS SQS", "Serverless"]
+          action: "Implementé la API transaccional de pagos y suscripciones",
+          scope: "desarrollando servicios backend serverless con Node.js, AWS Lambda y AWS API Gateway",
+          impact: "habilitando cobros recurrentes y pagos en línea con alta escalabilidad y disponibilidad",
+          skills: ["Node.js", "AWS Lambda", "AWS API Gateway", "Pagos Digitales"]
+        },
+        {
+          action: "Diseñé la integración asíncrona tolerante a fallos",
+          scope: "empleando colas AWS SQS para desacoplar el procesamiento transaccional entre pasarelas y sistemas financieros",
+          impact: "asegurando cero pérdida de transacciones y autenticación/autorización robusta",
+          skills: ["AWS SQS", "Asincronía", "Serverless", "Seguridad"]
         }
       ]
     }
@@ -292,15 +388,51 @@ export const PROFILE_DATA: CandidateProfile = {
   ],
   certifications: [
     {
-      name: "EF SET Certificate (English B2 - 56/100)",
-      issuer: "EF Standard English Test",
-      year: "2025",
+      name: "Solutions Consultant I Accreditation",
+      issuer: "Mambu Academy",
+      year: "2024",
       category: "Acreditación"
     },
     {
-      name: "Scrum Fundamentals Certified",
-      issuer: "SCRUMstudy",
+      name: "Integration Consultant Accreditation",
+      issuer: "Mambu Academy",
       year: "2024",
+      category: "Acreditación"
+    },
+    {
+      name: "AWS Educate - Introduction to Generative AI",
+      issuer: "Amazon Web Services",
+      year: "2025",
+      category: "Curso"
+    },
+    {
+      name: "AWS Educate - Introduction to Cloud 101",
+      issuer: "Amazon Web Services",
+      year: "2025",
+      category: "Curso"
+    },
+    {
+      name: "AWS Educate - Getting Started with Compute",
+      issuer: "Amazon Web Services",
+      year: "2025",
+      category: "Curso"
+    },
+    {
+      name: "AWS Educate - Getting Started with Storage",
+      issuer: "Amazon Web Services",
+      year: "2025",
+      category: "Curso"
+    },
+    {
+      name: "Curso Completo AWS Certified Cloud Practitioner",
+      issuer: "Udemy",
+      year: "2022",
+      category: "Curso"
+    },
+    {
+      name: "Scrum Fundamentals Certified (SFC)",
+      issuer: "SCRUMstudy",
+      year: "2020",
       category: "Certificación"
     },
     {
@@ -310,21 +442,15 @@ export const PROFILE_DATA: CandidateProfile = {
       category: "Certificación"
     },
     {
-      name: "Mambu Certified Integrator",
-      issuer: "Mambu Academy",
-      year: "2024",
-      category: "Acreditación"
-    },
-    {
-      name: "AWS Architecture & Services (Educate)",
-      issuer: "Amazon Web Services",
+      name: "EF SET English Certificate 56/100 (B2 Upper Intermediate)",
+      issuer: "EF Standard English Test",
       year: "2025",
-      category: "Curso"
+      category: "Acreditación"
     }
   ],
   languages: [
     { language: "Español", level: "Nativo" },
-    { language: "Inglés", level: "B2 (Intermedio Avanzado)", score: "56/100 EF SET" }
+    { language: "Inglés", level: "B2 (Upper Intermediate)", score: "56/100 EF SET" }
   ]
 };
 
@@ -332,25 +458,25 @@ export const JOB_PRESETS = [
   {
     id: "solutions-architect-sr",
     title: "Arquitecto de Soluciones Senior / Principal",
-    description: "Diseño de soluciones empresariales complejas, microservicios resilientes, DDD y modernización cloud en AWS/Azure para entornos de alta escala.",
-    keywords: ["Arquitecto de Soluciones", "AWS", "Azure", "Microservicios", "DDD", "BIAN", "C4 Model", "Event-Driven", "Docker", "Kubernetes", "Kafka", "Resiliencia"]
+    description: "Definición e implementación de arquitecturas de integración empresarial, microservicios resilientes, DDD y modernización cloud en Azure/AWS para entornos bancarios y financieros de alta escala.",
+    keywords: ["Arquitecto de Soluciones", "BIAN", "Azure", "AWS", "Microservicios", "DDD", "C4 Model", "Event-Driven", "Kafka", "Resiliencia", "Docker", "Kubernetes"]
   },
   {
     id: "integration-api-architect",
     title: "Arquitecto de Integración & Gobierno de APIs",
-    description: "Especialista en ciclo de vida de APIs (API First/Led), API Management (Apigee / Azure APIM), seguridad bancaria (OAuth2, mTLS, JWT) y EDA.",
-    keywords: ["API Governance", "API First", "Apigee", "Azure APIM", "OAuth2", "mTLS", "JWT", "Kafka", "OpenAPI", "Contratos de Integración", "EDA"]
+    description: "Especialista en ciclo de vida de APIs (API First / API Led), gestión de plataformas (Apigee / Azure APIM), seguridad bancaria (OAuth2/OIDC, mTLS, JWT) y arquitectura basada en eventos (Kafka).",
+    keywords: ["API Governance", "API First / Led", "Apigee", "Azure APIM", "OAuth2/OIDC", "mTLS", "JWT", "Kafka", "OpenAPI", "Contratos de Integración", "BIAN v13"]
   },
   {
     id: "cloud-native-architect",
     title: "Arquitecto Cloud / Cloud-Native",
-    description: "Estrategias de arquitectura en nube pública (AWS, Azure), infraestructura como código con Terraform, contenedores y sistemas distribuidos.",
-    keywords: ["AWS", "Azure", "Cloud-Native", "Terraform", "Docker", "Kubernetes", "Lambda", "SQS", "IaC", "Observabilidad", "Dynatrace"]
+    description: "Estrategias de arquitectura en nube pública (AWS, Azure, GCP), infraestructura como código con Terraform, contenedores Docker/Kubernetes y observabilidad distribuida con Dynatrace y ELK.",
+    keywords: ["AWS", "Azure", "GCP", "Cloud-Native", "Terraform", "Docker", "Kubernetes", "Dynatrace", "ELK", "IaC", "Observabilidad", "Zero Trust"]
   },
   {
     id: "tech-lead-squad",
     title: "Technical Lead / Squad Architecture Lead",
-    description: "Liderazgo técnico y gobierno de ingeniería en squads multidisciplinarios, definición de ADRs, C4 modeling y code quality.",
-    keywords: ["Liderazgo Técnico", "Gobierno de Squads", "C4 Model", "TOGAF", "ArchiMate", "Java", "Spring Boot", "Code Review", "Mentoría"]
+    description: "Liderazgo técnico y gobierno de ingeniería en squads multidisciplinarios (~30 ingenieros), conducción de ARB (Architecture Review Board), definición de ADRs y modelado C4/ArchiMate.",
+    keywords: ["Liderazgo Técnico", "Gobierno de Squads", "ARB", "C4 Model", "TOGAF", "ArchiMate", "Java", "Spring Boot", "Code Review", "Mentoring"]
   }
 ];

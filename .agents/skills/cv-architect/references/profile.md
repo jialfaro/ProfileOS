@@ -1,41 +1,41 @@
-# Perfil fuente — extracción de CV recibido (23/10/2026)
+# Perfil fuente verificado — Jaime Ivan Alexis Alfaro Salazar (Alexis Alfaro)
 
-Fuente: «CV Arquitecto TI - Alexis Alfaro Salazar (1).pdf», 6 páginas.
+Fuente: «CV Arquitecto TI - Alexis Alfaro Salazar (1).pdf» y «CV Arquitecto de Soluciones Sr - Alexis Alfaro Salazar.docx». Confirmado expresamente por el usuario el 23-10-2026.
 
-## Posicionamiento declarado
-Arquitecto de TI; integración empresarial, APIs, gobierno TI; más de siete años (afirmación en CV); banca, finanzas, seguros y educación. Gobierno de integración, API First/API Led, DDD, microservicios, arquitecturas event-driven, cloud-native, AWS/Azure, BIAN, resiliencia, seguridad y observabilidad.
+## Datos de Identidad y Contacto
+- **Nombre legal completo:** Jaime Ivan Alexis Alfaro Salazar
+- **Nombre profesional de preferencia:** Alexis Alfaro Salazar (le gusta que lo llamen «Alexis» en el trabajo)
+- **Localidad:** Lima, Perú
+- **Teléfono:** +51 974 221 535
+- **Correo electrónico:** jaimealfarosalazar@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/jaime-ivan-alexis-a-2361a1130
+- **GitHub:** https://github.com/jialfaro
+- **Fotografía profesional:** `/alexis-avatar.png` (extraída de documentos oficiales de incorporación)
 
-## Cronología literal resumida
-| Organización | Rol | Fechas declaradas |
-|---|---|---|
-| TCS Perú / BCP | Arquitecto Tecnológico / Gobierno de APIs | Nov 2024–Actualidad |
-| OM Technology Group | Arquitecto de Software / Especialista AWS Sr | Feb 2024–Feb 2025 |
-| Rímac Seguros y Reaseguros | Arquitecto de Solución Sr – Líder Técnico | Jul 2023–Ene 2024 |
-| Laureate Perú | Arquitecto de Solución Sr | Ene 2022–Jun 2023 |
-| Softnet / Mibanco | Arquitecto de Solución Sr | May–Dic 2021 |
-| Indra | Líder Técnico | Feb 2020–Abr 2021 |
-| Experis / Rímac | Full Stack Developer | Ene 2019–Ene 2020 |
+## Posicionamiento profesional
+Arquitecto de Soluciones Sr / Arquitecto de TI & Gobierno de APIs; más de siete años de experiencia en sector financiero, banca y seguros. Especialista en gobierno del ciclo de vida de APIs (API First / API Led), arquitecturas dirigidas por eventos (EDA) con Apache Kafka, Domain-Driven Design (DDD), microservicios cloud-native en AWS y Azure, marco BIAN v13 para capacidades bancarias, observabilidad y resiliencia.
 
-## Evidencias concretas de participación
-- TCS/BCP: gobierno y ciclo de vida de APIs y eventos; plataformas Apigee/Azure APIM; OAuth2, JWT, mTLS; Dynatrace y ELK.
-- OM: integraciones basadas en Mambu, DDD para pagos/onboarding/cuentas, Spring Boot hexagonal, Kafka/SQS/SNS, Terraform/Docker.
-- Rímac: gobierno arquitectónico de múltiples squads (~30 ingenieros); BFF; JBoss Fuse; C4/TOGAF/ArchiMate.
-- Experis/Rímac: API de pagos, Node.js y AWS Gateway/Lambda/SQS.
+## Cronología oficial verificada
+| Organización | Cliente | Rol | Periodo |
+|---|---|---|---|
+| TCS Perú | BCP (Banco de Crédito del Perú) | Arquitecto de Soluciones / Tecnológico / Gobierno de APIs | Sep 2024 – Actualidad |
+| OM Technology Group | Mambu Core Banking | Arquitecto de Soluciones / Software / Especialista AWS Sr | Feb 2024 – Ago 2024 |
+| Rímac Seguros y Reaseguros | Interno | Arquitecto de Solución Sr – Líder Técnico (ARB, ~30 devs) | Jul 2023 – Ene 2024 |
+| Laureate Perú | Interno | Arquitecto de Solución Sr (AWS + Azure) | Ene 2022 – Jun 2023 |
+| Softnet / Mibanco | Mibanco | Arquitecto de Solución Sr | May 2021 – Dic 2021 |
+| Indra | Diversos | Arquitecto de Soluciones / Líder Técnico | Feb 2020 – Abr 2021 |
+| Experis / Rímac | Rímac Seguros | Full Stack Developer (Proyecto API Pagos) | Ene 2019 – Ene 2020 |
 
-## Formación e idiomas
-- Universidad Privada de Tacna, Ingeniería de Sistemas [2016] — grado/título sin especificar.
-- EF SET 56/100, B2 (2025) — según CV.
-- Cursos AWS Educate (2025), acreditaciones Mambu (2024), Scrum Fundamentals, Six Sigma Yellow Belt y curso Udemy AWS (no equiparar curso a certificación de examen AWS).
+*Nota cronológica:* Se confirmó que en OM Technology Group laboró hasta Agosto 2024 y en TCS Perú inició en Septiembre 2024, resolviendo cualquier sospecha de superposición indebida.
 
-## Cuestiones obligatorias por confirmar
-1. Nombre correcto para uso profesional: la portada menciona «Alexis Alfaro Salazar» y página 6 «Jaime Alfaro Salazar».
-2. Si empleo TCS y OM tuvo superposición real entre noviembre 2024 y febrero 2025; modalidad de ambos.
-3. Grado académico obtenido y año, en lugar de asumir título.
-4. Principales resultados cuantificados por empresa: ahorros, throughput, latencia, disponibilidad, cumplimiento, ahorro de costos o productividad, solo cuando existan datos reales.
-5. Si el rol TCS continúa vigente al actualizar el CV.
-6. Qué tecnologías fueron hands-on, cuáles diseño/gobierno y cuáles conocimiento teórico.
-7. Preferencias de rol, modalidad (remoto/híbrido/presencial) y mercado para adaptación de vacantes.
-
-## Estructura visual a revisar
-- 6 páginas; portada con fotografía en primera página y cierre gráfico en sexta.
-- Para ATS, preferible estructura de texto lineal y jerarquía estándar sin portada ni página de cierre.
+## Formación académica y certificaciones
+- **Universidad Privada de Tacna:** Ingeniería de Sistemas (2016)
+- **Certificaciones & Acreditaciones:**
+  - Solutions Consultant I Accreditation — Mambu Academy (2024)
+  - Integration Consultant Accreditation — Mambu Academy (2024)
+  - AWS Educate (Introduction to Cloud 101, Compute, Storage, Generative AI) — AWS (2025)
+  - Curso Completo AWS Certified Cloud Practitioner — Udemy (2022)
+  - Scrum Fundamentals Certified (SFC) — SCRUMstudy (2020)
+  - Six Sigma Yellow Belt — 6SIGMAstudy (2024)
+  - EF SET English Certificate 56/100 (B2 Upper Intermediate) — (2025)
+- **Idiomas:** Español nativo, Inglés B2 (56/100 EF SET).
