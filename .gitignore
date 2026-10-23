@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Archives & Temporary files
+*.zip
+it-architecture-career-agent/
+
+# Personal CV source documents (keep local to protect personal contact info)
+*.pdf
+*.docx
