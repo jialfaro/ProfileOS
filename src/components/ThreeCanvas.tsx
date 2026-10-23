@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 export const ThreeCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -149,13 +155,12 @@ export const ThreeCanvas: React.FC = () => {
 
     // Animation Loop
     let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const delta = clock.getDelta();
-      const time = clock.getElapsedTime();
+      const time = (performance.now() - startTime) / 1000;
 
       if (!prefersReducedMotion) {
         // Slow architectural orbit
@@ -200,7 +205,7 @@ export const ThreeCanvas: React.FC = () => {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [mounted]);
 
   return (
     <div 
