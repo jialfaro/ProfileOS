@@ -1,6 +1,15 @@
-# OS
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js build output
+.next/
+out/
+
+# OS & Environment
 .DS_Store
 Thumbs.db
+*.env*.local
 
 # Archives & Temporary files
 *.zip
