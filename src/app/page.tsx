@@ -2,21 +2,30 @@
 
 import React, { useState } from "react";
 import { PROFILE_DATA, Experience } from "@/data/profile";
+import { ARCHITECTURE_NODES, ArchitectureNode } from "@/data/architectureNodes";
 import { ThreeCanvas } from "@/components/ThreeCanvas";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { ArchitectureInspector } from "@/components/ArchitectureInspector";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { JobAdapter } from "@/components/JobAdapter";
 import { ExportStudio } from "@/components/ExportStudio";
 import { Footer } from "@/components/Footer";
+import { playNodeSelect, playTactileClick } from "@/lib/sound";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("hero");
+  
+  // 3D Spatial Architecture State
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>("bcp-gateway");
+  const [activeLayerFilter, setActiveLayerFilter] = useState<string | null>(null);
 
   // Tailoring State (Passed from JobAdapter to ExportStudio)
   const [tailoredTitle, setTailoredTitle] = useState<string | undefined>(undefined);
   const [tailoredSummary, setTailoredSummary] = useState<string | undefined>(undefined);
   const [tailoredExperiences, setTailoredExperiences] = useState<Experience[] | undefined>(undefined);
+
+  const selectedNode = ARCHITECTURE_NODES.find((n) => n.id === selectedNodeId) || null;
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -30,6 +39,15 @@ export default function Home() {
     }
   };
 
+  const handleSelectNode = (nodeId: string) => {
+    setSelectedNodeId(nodeId);
+    playNodeSelect();
+  };
+
+  const handleCloseInspector = () => {
+    setSelectedNodeId(null);
+  };
+
   const handleApplyTailoring = (tailoredData: {
     targetTitle: string;
     customSummary: string;
@@ -39,7 +57,7 @@ export default function Home() {
     setTailoredSummary(tailoredData.customSummary);
     setTailoredExperiences(tailoredData.prioritizedExperience);
 
-    // Smooth scroll to Export Studio to preview the result
+    // Smooth scroll to Export Studio to preview the tailored output
     scrollToSection("export");
   };
 
@@ -50,26 +68,34 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-sky-500/25 selection:text-sky-200">
+    <div className="relative min-h-screen bg-[#02040a] text-slate-100 flex flex-col selection:bg-sky-500/25 selection:text-sky-200">
       
-      {/* 3D Background Canvas in Hero */}
-      <ThreeCanvas />
+      {/* 3D Spatial Architecture Canvas */}
+      <ThreeCanvas 
+        selectedNodeId={selectedNodeId}
+        onSelectNode={handleSelectNode}
+        activeLayerFilter={activeLayerFilter}
+      />
 
       {/* Main Header */}
       <Header onNavigate={scrollToSection} activeSection={activeSection} />
 
       {/* Main Content Sections */}
-      <main className="flex-1 relative z-10 space-y-12">
+      <main className="flex-1 relative z-10 space-y-16">
         
-        {/* Hero Section */}
+        {/* Spatial Architecture Hero Console */}
         <Hero
           profile={PROFILE_DATA}
+          selectedNodeId={selectedNodeId}
+          onSelectNode={handleSelectNode}
+          activeLayerFilter={activeLayerFilter}
+          onSetLayerFilter={setActiveLayerFilter}
           onExploreTimeline={() => scrollToSection("timeline")}
           onOpenAdapter={() => scrollToSection("adapter")}
           onExport={() => scrollToSection("export")}
         />
 
-        {/* Experience Timeline */}
+        {/* Experience & Decisions Ledger */}
         <ExperienceTimeline experiences={PROFILE_DATA.experiences} />
 
         {/* Dynamic CV Job Adapter */}
@@ -88,6 +114,14 @@ export default function Home() {
         />
 
       </main>
+
+      {/* Slide-out Architectural Inspector Drawer */}
+      <ArchitectureInspector
+        node={selectedNode}
+        onClose={handleCloseInspector}
+        onSelectNode={handleSelectNode}
+        allNodes={ARCHITECTURE_NODES}
+      />
 
       {/* Footer */}
       <Footer />

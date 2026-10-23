@@ -2,21 +2,26 @@
 
 import React from "react";
 import { CandidateProfile } from "@/data/profile";
+import { ARCHITECTURE_NODES } from "@/data/architectureNodes";
 import { 
   ShieldCheck, 
   Sparkles, 
+  Layers, 
   Network, 
-  Cloud, 
-  Workflow, 
-  Users, 
-  CheckCircle2, 
-  ArrowRight,
-  Terminal,
+  Compass, 
+  Terminal, 
+  ChevronRight,
+  Activity,
   Cpu
 } from "lucide-react";
+import { playTactileClick, playNodeSelect } from "@/lib/sound";
 
 interface HeroProps {
   profile: CandidateProfile;
+  selectedNodeId: string | null;
+  onSelectNode: (nodeId: string) => void;
+  activeLayerFilter: string | null;
+  onSetLayerFilter: (layer: string | null) => void;
   onExploreTimeline: () => void;
   onOpenAdapter: () => void;
   onExport: () => void;
@@ -24,108 +29,158 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({
   profile,
+  selectedNodeId,
+  onSelectNode,
+  activeLayerFilter,
+  onSetLayerFilter,
   onExploreTimeline,
   onOpenAdapter,
   onExport
 }) => {
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      
-      {/* Subtle architectural ambient grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b0f_1px,transparent_1px),linear-gradient(to_bottom,#1e293b0f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none" />
+  const layers = [
+    "Gateway & Governance",
+    "Core & Event Mesh",
+    "Squad Leadership",
+    "Hybrid Cloud",
+    "Serverless & Payments"
+  ];
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+  return (
+    <section className="relative min-h-[92vh] flex flex-col justify-between pt-6 pb-12 px-4 sm:px-6 lg:px-8">
+      
+      {/* Top Telemetry & Positioning Bar */}
+      <div className="max-w-6xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10 pointer-events-auto">
         
-        {/* Verification & Positioning Badge */}
+        {/* Verification Pill */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/60 shadow-xl backdrop-blur-md">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
           <span className="text-xs font-mono font-medium text-slate-300">
-            Perfil Auditado con Reglas <span className="text-emerald-400 font-semibold">cv-architect</span>
+            Spatial Architecture Workstation — <span className="text-emerald-400 font-semibold">Alexis Alfaro</span>
           </span>
           <span className="h-3 w-px bg-slate-700" />
-          <span className="text-[11px] font-mono text-slate-400">Sin Datos Inflados</span>
+          <span className="text-[11px] font-mono text-slate-400">Verificado cv-architect</span>
         </div>
 
-        {/* Main Title */}
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-100 font-sans">
-            <span className="block text-slate-300 font-normal text-2xl sm:text-3xl mb-1 tracking-wide font-mono">
-              Alexis Alfaro Salazar
-            </span>
-            <span className="bg-gradient-to-r from-slate-100 via-sky-200 to-sky-400 bg-clip-text text-transparent">
-              Arquitecto de TI & Soluciones Cloud
-            </span>
-          </h1>
-
-          <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-300 leading-relaxed font-sans font-light">
-            Especialista en <strong className="text-sky-300 font-medium">Gobierno del Ciclo de Vida de APIs</strong>, arquitecturas <strong className="text-sky-300 font-medium">Event-Driven (Kafka)</strong> y modernización cloud-native sobre <strong className="text-sky-300 font-medium">AWS y Azure</strong> en entornos de alta exigencia financiera (BCP, Mambu, Rímac).
-          </p>
-        </div>
-
-        {/* Core Pillars / Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto pt-2">
-          
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md text-left hover:border-slate-700 transition-all">
-            <div className="flex items-center gap-2 text-sky-400 mb-1">
-              <Workflow className="w-4 h-4" />
-              <span className="text-xs font-mono font-semibold uppercase">Experiencia</span>
-            </div>
-            <div className="text-2xl font-bold text-slate-100 font-mono">+7 Años</div>
-            <div className="text-xs text-slate-400 mt-0.5">Banca, Seguros & Core</div>
+        {/* Live System Metric Indicators */}
+        <div className="hidden sm:flex items-center gap-3 font-mono text-xs text-slate-400">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/70 border border-slate-800">
+            <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
+            <span>6 Nodos en Vivo</span>
           </div>
-
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md text-left hover:border-slate-700 transition-all">
-            <div className="flex items-center gap-2 text-emerald-400 mb-1">
-              <Network className="w-4 h-4" />
-              <span className="text-xs font-mono font-semibold uppercase">API Management</span>
-            </div>
-            <div className="text-2xl font-bold text-slate-100 font-mono">Apigee & APIM</div>
-            <div className="text-xs text-slate-400 mt-0.5">OAuth2, mTLS, JWT & EDA</div>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/70 border border-slate-800">
+            <Activity className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Escala Banca & Seguros</span>
           </div>
-
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md text-left hover:border-slate-700 transition-all">
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <Users className="w-4 h-4" />
-              <span className="text-xs font-mono font-semibold uppercase">Liderazgo</span>
-            </div>
-            <div className="text-2xl font-bold text-slate-100 font-mono">~30 Devs</div>
-            <div className="text-xs text-slate-400 mt-0.5">Gobierno Multi-Squad</div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md text-left hover:border-slate-700 transition-all">
-            <div className="flex items-center gap-2 text-purple-400 mb-1">
-              <Cloud className="w-4 h-4" />
-              <span className="text-xs font-mono font-semibold uppercase">Marcos & Cloud</span>
-            </div>
-            <div className="text-2xl font-bold text-slate-100 font-mono">BIAN & C4</div>
-            <div className="text-xs text-slate-400 mt-0.5">AWS, Azure & TOGAF</div>
-          </div>
-
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-          
-          <button
-            onClick={onOpenAdapter}
-            className="group flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-medium text-sm shadow-xl shadow-sky-500/25 border border-sky-400/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            <span>Adaptar CV a una Vacante Específica</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button
-            onClick={onExploreTimeline}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 text-slate-200 font-medium text-sm border border-slate-700/80 hover:border-slate-600 shadow-md transition-all active:scale-[0.98]"
-          >
-            <Terminal className="w-4 h-4 text-slate-400" />
-            <span>Explorar Trayectoria y Decisiones</span>
-          </button>
-
         </div>
 
       </div>
+
+      {/* Center Main Stage (Leaves clear view for the 3D Node Mesh) */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center my-auto space-y-6 pointer-events-auto">
+        
+        <div className="space-y-3">
+          <p className="font-mono text-xs uppercase tracking-widest text-sky-400">
+            Soluciones Cloud · Gobierno de APIs · Event-Driven (Kafka) · Microservicios
+          </p>
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-100 font-sans leading-none">
+            Arquitectura de Sistemas <br />
+            <span className="bg-gradient-to-r from-slate-100 via-sky-200 to-sky-400 bg-clip-text text-transparent">
+              en Escala Transaccional
+            </span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+            Explora interactivamente los sistemas reales diseñados para <strong className="text-sky-300 font-medium">BCP, Mambu y Rímac</strong>. Haz clic en cualquier nodo 3D para inspeccionar sus decisiones técnicas (ADRs), contratos y protocolos.
+          </p>
+        </div>
+
+        {/* Interactive 3D Node Launcher Chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+          {ARCHITECTURE_NODES.map((node) => {
+            const isSelected = selectedNodeId === node.id;
+            return (
+              <button
+                key={node.id}
+                onClick={() => {
+                  playNodeSelect();
+                  onSelectNode(node.id);
+                }}
+                className={`group flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-all backdrop-blur-md ${
+                  isSelected
+                    ? "bg-sky-500/30 text-sky-200 border border-sky-400 shadow-lg shadow-sky-500/20 scale-105"
+                    : "bg-slate-900/70 text-slate-300 border border-slate-800 hover:border-slate-600 hover:bg-slate-800/80"
+                }`}
+              >
+                <span 
+                  className="w-2 h-2 rounded-full transition-transform group-hover:scale-125"
+                  style={{ backgroundColor: node.color }}
+                />
+                <span>{node.name}</span>
+                <ChevronRight className="w-3 h-3 text-slate-500 group-hover:translate-x-0.5 group-hover:text-sky-400 transition-all" />
+              </button>
+            );
+          })}
+        </div>
+
+      </div>
+
+      {/* Bottom Architectural Layer Filter Bar */}
+      <div className="relative z-10 max-w-5xl mx-auto w-full pt-4 pointer-events-auto">
+        <div className="p-3 rounded-2xl bg-slate-900/75 border border-slate-800/90 shadow-2xl backdrop-blur-xl flex flex-wrap items-center justify-between gap-3">
+          
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+            <Compass className="w-4 h-4 text-sky-400" />
+            <span className="hidden sm:inline">Filtrar Capa Arquitectónica:</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1.5">
+            <button
+              onClick={() => {
+                playTactileClick();
+                onSetLayerFilter(null);
+              }}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all ${
+                activeLayerFilter === null
+                  ? "bg-sky-500/20 text-sky-300 border border-sky-500/50"
+                  : "bg-slate-950/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+              }`}
+            >
+              Todos los Nodos
+            </button>
+
+            {layers.map((layer) => (
+              <button
+                key={layer}
+                onClick={() => {
+                  playTactileClick();
+                  onSetLayerFilter(activeLayerFilter === layer ? null : layer);
+                }}
+                className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-all ${
+                  activeLayerFilter === layer
+                    ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/50"
+                    : "bg-slate-950/60 text-slate-400 hover:text-slate-200 border border-slate-800"
+                }`}
+              >
+                {layer}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                playTactileClick();
+                onOpenAdapter();
+              }}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-xs font-mono transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Simulador de Vacante</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
     </section>
   );
 };

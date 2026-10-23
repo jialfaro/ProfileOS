@@ -2,10 +2,33 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { ARCHITECTURE_NODES, ArchitectureNode } from "@/data/architectureNodes";
+import { playNodeSelect, playTactileClick } from "@/lib/sound";
 
-export const ThreeCanvas: React.FC = () => {
+interface ThreeCanvasProps {
+  selectedNodeId: string | null;
+  onSelectNode: (nodeId: string) => void;
+  activeLayerFilter?: string | null;
+}
+
+export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
+  selectedNodeId,
+  onSelectNode,
+  activeLayerFilter
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState<ArchitectureNode | null>(null);
+
+  // Store callbacks in ref to avoid re-initializing Three.js on every prop change
+  const onSelectNodeRef = useRef(onSelectNode);
+  onSelectNodeRef.current = onSelectNode;
+
+  const selectedNodeIdRef = useRef(selectedNodeId);
+  selectedNodeIdRef.current = selectedNodeId;
+
+  const activeLayerFilterRef = useRef(activeLayerFilter);
+  activeLayerFilterRef.current = activeLayerFilter;
 
   useEffect(() => {
     setMounted(true);
@@ -16,21 +39,19 @@ export const ThreeCanvas: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Scene, Camera, Renderer
+    // Scene & Camera
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030712, 0.035);
+    scene.fog = new THREE.FogExp2(0x02040a, 0.032);
 
     const camera = new THREE.PerspectiveCamera(
-      60,
+      55,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    camera.position.z = 24;
-    camera.position.y = 2;
+    camera.position.set(0, 1.5, 18);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -40,107 +61,150 @@ export const ThreeCanvas: React.FC = () => {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
 
-    // Group for mouse parallax
     const worldGroup = new THREE.Group();
     scene.add(worldGroup);
 
-    // Architectural Nodes & Network Lattice
-    const nodeCount = 42;
-    const nodePositions: THREE.Vector3[] = [];
-    const nodeGeometry = new THREE.SphereGeometry(0.18, 16, 16);
-    
-    // Core node materials: Platinum, Cyan-Teal accent, Warm Gold
-    const materialCyan = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-    const materialPlatinum = new THREE.MeshBasicMaterial({ color: 0xe2e8f0 });
-    const materialGold = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+    // Create Architecture Node Meshes
+    const nodeMeshes: {
+      mesh: THREE.Mesh;
+      ring: THREE.Mesh;
+      data: ArchitectureNode;
+      basePos: THREE.Vector3;
+    }[] = [];
 
-    const nodesMeshGroup = new THREE.Group();
+    const nodeGeometry = new THREE.SphereGeometry(0.55, 32, 32);
+    const ringGeometry = new THREE.RingGeometry(0.75, 0.85, 32);
 
-    for (let i = 0; i < nodeCount; i++) {
-      // Cluster nodes in a multi-tiered architectural layer (simulating cloud & edge)
-      const u = (Math.random() - 0.5) * 32;
-      const v = (Math.random() - 0.5) * 16;
-      const w = (Math.random() - 0.5) * 18;
-      const pos = new THREE.Vector3(u, v, w);
-      nodePositions.push(pos);
+    ARCHITECTURE_NODES.forEach((nodeData) => {
+      const color = new THREE.Color(nodeData.color);
 
-      const mat = i % 7 === 0 ? materialGold : i % 3 === 0 ? materialCyan : materialPlatinum;
-      const sphere = new THREE.Mesh(nodeGeometry, mat);
-      sphere.position.copy(pos);
-      nodesMeshGroup.add(sphere);
-    }
-    worldGroup.add(nodesMeshGroup);
+      // Node Sphere with soft inner glow
+      const nodeMaterial = new THREE.MeshBasicMaterial({
+        color: color,
+        wireframe: false
+      });
+      const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMaterial);
+      const pos = new THREE.Vector3(...nodeData.position);
+      nodeMesh.position.copy(pos);
+      nodeMesh.userData = { id: nodeData.id, data: nodeData };
 
-    // Connecting Lines (Network topology / Event Streams)
+      // Orbital Ring around the node
+      const ringMaterial = new THREE.MeshBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide
+      });
+      const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+      ringMesh.position.copy(pos);
+      ringMesh.rotation.x = Math.PI / 2;
+
+      worldGroup.add(nodeMesh);
+      worldGroup.add(ringMesh);
+
+      nodeMeshes.push({
+        mesh: nodeMesh,
+        ring: ringMesh,
+        data: nodeData,
+        basePos: pos
+      });
+    });
+
+    // Connecting Lines (Event Streams & Service Mesh)
     const lineMaterial = new THREE.LineBasicMaterial({
       color: 0x38bdf8,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.22,
       blending: THREE.AdditiveBlending
     });
 
-    const linePositions: number[] = [];
-    const maxDistance = 7.5;
+    const activeLineMaterial = new THREE.LineBasicMaterial({
+      color: 0xf59e0b,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending,
+      linewidth: 2
+    });
 
-    for (let i = 0; i < nodeCount; i++) {
-      for (let j = i + 1; j < nodeCount; j++) {
-        const dist = nodePositions[i].distanceTo(nodePositions[j]);
-        if (dist < maxDistance) {
-          linePositions.push(
-            nodePositions[i].x, nodePositions[i].y, nodePositions[i].z,
-            nodePositions[j].x, nodePositions[j].y, nodePositions[j].z
-          );
+    const connectionLines: { line: THREE.Line; fromId: string; toId: string }[] = [];
+
+    ARCHITECTURE_NODES.forEach((node) => {
+      node.connections.forEach((targetId) => {
+        const targetNode = ARCHITECTURE_NODES.find((n) => n.id === targetId);
+        if (targetNode) {
+          const points = [
+            new THREE.Vector3(...node.position),
+            new THREE.Vector3(...targetNode.position)
+          ];
+          const geometry = new THREE.BufferGeometry().setFromPoints(points);
+          const line = new THREE.Line(geometry, lineMaterial);
+          worldGroup.add(line);
+          connectionLines.push({ line, fromId: node.id, toId: targetId });
         }
-      }
-    }
+      });
+    });
 
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
-    const networkLines = new THREE.LineSegments(lineGeometry, lineMaterial);
-    worldGroup.add(networkLines);
-
-    // Floating Ambient Dust/Particles
-    const particleCount = 200;
+    // Background Architectural Lattice Dust
+    const particleCount = 140;
     const particleGeometry = new THREE.BufferGeometry();
     const particleCoords = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      particleCoords[i] = (Math.random() - 0.5) * 50;
-      particleCoords[i + 1] = (Math.random() - 0.5) * 30;
-      particleCoords[i + 2] = (Math.random() - 0.5) * 35;
+      particleCoords[i] = (Math.random() - 0.5) * 45;
+      particleCoords[i + 1] = (Math.random() - 0.5) * 28;
+      particleCoords[i + 2] = (Math.random() - 0.5) * 30;
     }
-
     particleGeometry.setAttribute("position", new THREE.BufferAttribute(particleCoords, 3));
     const particleMaterial = new THREE.PointsMaterial({
       size: 0.08,
       color: 0x94a3b8,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.35,
       blending: THREE.AdditiveBlending
     });
     const particleField = new THREE.Points(particleGeometry, particleMaterial);
     worldGroup.add(particleField);
 
-    // Mouse Interaction
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
+    // Raycasting for Mouse Interaction
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2(-999, -999);
+    let targetRotationX = 0;
+    let targetRotationY = 0;
 
     const handleMouseMove = (event: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
-      mouseX = (x / container.clientWidth - 0.5) * 2;
-      mouseY = (y / container.clientHeight - 0.5) * 2;
+
+      mouse.x = (x / container.clientWidth) * 2 - 1;
+      mouse.y = -(y / container.clientHeight) * 2 + 1;
+
+      targetRotationY = ((x / container.clientWidth) - 0.5) * 0.5;
+      targetRotationX = ((y / container.clientHeight) - 0.5) * 0.3;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    const handleClick = () => {
+      raycaster.setFromCamera(mouse, camera);
+      const meshesToTest = nodeMeshes.map((n) => n.mesh);
+      const intersects = raycaster.intersectObjects(meshesToTest);
 
-    // Resize Handler
+      if (intersects.length > 0) {
+        const hit = intersects[0].object as THREE.Mesh;
+        const nodeId = hit.userData.id;
+        if (nodeId) {
+          playNodeSelect();
+          onSelectNodeRef.current(nodeId);
+        }
+      }
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("click", handleClick);
+
+    // Resize handler
     const handleResize = () => {
       if (!container) return;
       const width = container.clientWidth;
@@ -163,21 +227,46 @@ export const ThreeCanvas: React.FC = () => {
       const time = (performance.now() - startTime) / 1000;
 
       if (!prefersReducedMotion) {
-        // Slow architectural orbit
-        worldGroup.rotation.y = time * 0.04;
-        worldGroup.rotation.x = Math.sin(time * 0.02) * 0.08;
+        // Smooth camera tilt & damping
+        worldGroup.rotation.y += (targetRotationY - worldGroup.rotation.y) * 0.05;
+        worldGroup.rotation.x += (targetRotationX - worldGroup.rotation.x) * 0.05;
 
-        // Smooth mouse damping
-        targetX += (mouseX * 0.45 - targetX) * 0.05;
-        targetY += (mouseY * 0.35 - targetY) * 0.05;
-        camera.position.x = targetX * 6;
-        camera.position.y = -targetY * 4 + 2;
-        camera.lookAt(0, 0, 0);
+        // Animate nodes and rings
+        nodeMeshes.forEach((item, index) => {
+          const isSelected = item.data.id === selectedNodeIdRef.current;
+          const isFiltered = activeLayerFilterRef.current && item.data.layer !== activeLayerFilterRef.current;
 
-        // Gentle floating pulsation for nodes
-        nodesMeshGroup.children.forEach((mesh, idx) => {
-          mesh.position.y += Math.sin(time * 1.5 + idx) * 0.003;
+          // Scale and pulsing
+          const pulse = Math.sin(time * 2.5 + index) * 0.05;
+          const targetScale = isSelected ? 1.45 : isFiltered ? 0.75 : 1 + pulse;
+          item.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+
+          // Rotate orbital ring
+          item.ring.rotation.z = time * 0.8 + index;
+          item.ring.scale.set(targetScale * 1.1, targetScale * 1.1, targetScale * 1.1);
         });
+
+        // Highlight active connections
+        connectionLines.forEach((conn) => {
+          const isConnectedToSelected =
+            conn.fromId === selectedNodeIdRef.current || conn.toId === selectedNodeIdRef.current;
+          conn.line.material = isConnectedToSelected ? activeLineMaterial : lineMaterial;
+        });
+      }
+
+      // Check hover with raycaster
+      raycaster.setFromCamera(mouse, camera);
+      const meshesToTest = nodeMeshes.map((n) => n.mesh);
+      const intersects = raycaster.intersectObjects(meshesToTest);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0].object as THREE.Mesh;
+        const data = hit.userData.data as ArchitectureNode;
+        container.style.cursor = "pointer";
+        setHoveredNode(data);
+      } else {
+        container.style.cursor = "default";
+        setHoveredNode(null);
       }
 
       renderer.render(scene, camera);
@@ -186,18 +275,16 @@ export const ThreeCanvas: React.FC = () => {
     animate();
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("click", handleClick);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
 
-      // Clean up geometries and materials
       nodeGeometry.dispose();
-      lineGeometry.dispose();
-      particleGeometry.dispose();
-      materialCyan.dispose();
-      materialPlatinum.dispose();
-      materialGold.dispose();
+      ringGeometry.dispose();
       lineMaterial.dispose();
+      activeLineMaterial.dispose();
+      particleGeometry.dispose();
       particleMaterial.dispose();
       renderer.dispose();
 
@@ -207,11 +294,37 @@ export const ThreeCanvas: React.FC = () => {
     };
   }, [mounted]);
 
+  if (!mounted) {
+    return <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true" />;
+  }
+
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 pointer-events-none z-0 overflow-hidden" 
-      aria-hidden="true"
-    />
+      className="absolute inset-0 z-0 overflow-hidden select-none"
+    >
+      {/* Floating Hover Tooltip HUD in 3D Space */}
+      {hoveredNode && (
+        <div 
+          className="absolute top-20 left-1/2 -translate-x-1/2 pointer-events-none z-20 px-4 py-2 rounded-xl bg-slate-950/90 border border-slate-700/80 shadow-2xl backdrop-blur-xl text-center space-y-0.5 animate-in fade-in zoom-in-95 duration-150"
+        >
+          <div className="flex items-center justify-center gap-2">
+            <span 
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: hoveredNode.color }}
+            />
+            <span className="text-xs font-mono font-bold text-slate-100">
+              {hoveredNode.name}
+            </span>
+          </div>
+          <p className="text-[11px] font-mono text-sky-400">
+            {hoveredNode.subsystem} ({hoveredNode.organization})
+          </p>
+          <span className="text-[10px] text-slate-400 font-mono block">
+            Click para inspeccionar decisiones técnicas (ADRs)
+          </span>
+        </div>
+      )}
+    </div>
   );
 };
