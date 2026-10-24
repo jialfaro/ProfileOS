@@ -36,7 +36,7 @@ export const ArchitectureInspector: React.FC<ArchitectureInspectorProps> = ({
 
   return (
     <aside 
-      className="fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-slate-950/95 border-l border-slate-800/90 shadow-2xl backdrop-blur-2xl flex flex-col transition-all duration-300 overflow-hidden"
+      className="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-slate-950/95 border-l border-slate-800/90 shadow-2xl backdrop-blur-2xl flex flex-col transition-all duration-300 overflow-hidden"
       aria-label="Inspector de Arquitectura"
     >
       {/* Top Bar */}

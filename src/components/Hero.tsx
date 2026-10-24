@@ -51,7 +51,7 @@ export const Hero: React.FC<HeroProps> = ({
   ];
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between pt-6 pb-12 px-4 sm:px-6 lg:px-8">
+    <section id="hero-section" className="no-print relative min-h-[92vh] flex flex-col justify-between pt-6 pb-12 px-4 sm:px-6 lg:px-8">
       
       {/* Top Telemetry & Positioning Bar */}
       <div className="max-w-6xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10 pointer-events-auto">

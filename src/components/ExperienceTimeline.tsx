@@ -42,7 +42,7 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
   };
 
   return (
-    <section id="timeline-section" className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
+    <section id="timeline-section" className="no-print py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
       
       {/* Header */}
       <div className="space-y-3">

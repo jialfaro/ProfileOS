@@ -117,7 +117,7 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
   };
 
   return (
-    <section id="adapter-section" className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
+    <section id="adapter-section" className="no-print py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
       
       {/* Section Header */}
       <div className="space-y-3">

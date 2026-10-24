@@ -301,7 +301,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 z-0 overflow-hidden select-none"
+      className="no-print absolute inset-0 z-0 overflow-hidden select-none"
     >
       {/* Floating Hover Tooltip HUD in 3D Space */}
       {hoveredNode && (
