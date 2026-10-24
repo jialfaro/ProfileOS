@@ -1,43 +1,51 @@
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { toJpeg } from "html-to-image";
 
-export async function exportCVToPDF(elementId: string, filename = "CV_Alexis_Alfaro_Salazar_Arquitecto_TI.pdf"): Promise<void> {
+export async function exportCVToPDF(
+  elementId: string,
+  filename = "CV_Alexis_Alfaro_Salazar_Arquitecto_TI.pdf"
+): Promise<void> {
   const element = document.getElementById(elementId);
   if (!element) {
     throw new Error(`Element #${elementId} not found`);
   }
 
-  // Clone element or style temporarily for pixel-perfect A4 capture
-  const opt = {
-    scale: 2.5, // High-DPI crisp rendering
-    useCORS: true,
-    logging: false,
+  // Use html-to-image which natively supports modern CSS color functions (lab, oklch, color-mix)
+  // via browser SVG foreignObject rendering instead of html2canvas AST parser.
+  const dataUrl = await toJpeg(element, {
+    quality: 0.98,
+    pixelRatio: 2.2,
     backgroundColor: "#ffffff",
-    windowWidth: 1024,
-  };
+    cacheBust: true,
+  });
 
-  const canvas = await html2canvas(element, opt);
-  const imgData = canvas.toDataURL("image/jpeg", 0.98);
+  // Calculate dimensions accurately
+  const img = new Image();
+  img.src = dataUrl;
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = reject;
+  });
 
   const pdf = new jsPDF("p", "mm", "a4");
   const pdfWidth = pdf.internal.pageSize.getWidth();
   const pdfHeight = pdf.internal.pageSize.getHeight();
 
   const imgWidth = pdfWidth;
-  const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+  const imgHeight = (img.naturalHeight * pdfWidth) / img.naturalWidth;
 
   let heightLeft = imgHeight;
   let position = 0;
 
-  // First page
-  pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+  // Page 1
+  pdf.addImage(dataUrl, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
   heightLeft -= pdfHeight;
 
-  // Subsequent pages if any
-  while (heightLeft > 0) {
+  // Subsequent pages (with 3mm threshold to avoid accidental trailing blank page)
+  while (heightLeft > 3) {
     position = heightLeft - imgHeight;
     pdf.addPage();
-    pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+    pdf.addImage(dataUrl, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
     heightLeft -= pdfHeight;
   }
 
