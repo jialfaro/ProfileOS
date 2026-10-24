@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
 import { CVDocument } from "@/components/CVDocument";
+import { exportCVToPDF } from "@/lib/pdfGenerator";
 import { 
   Printer, 
   ArrowLeft, 
@@ -11,12 +12,15 @@ import {
   Eye, 
   FileCheck2,
   Share2,
-  Check
+  Check,
+  Download,
+  Loader2
 } from "lucide-react";
 
 export default function CVPage() {
   const [viewMode, setViewMode] = useState<"ats" | "visual">("ats");
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   useEffect(() => {
     // Check if ?print=true parameter is present in URL
@@ -28,6 +32,18 @@ export default function CVPage() {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  const handleDownloadDirectPDF = async () => {
+    try {
+      setIsGeneratingPDF(true);
+      await exportCVToPDF("cv-printable-area", "CV_Alexis_Alfaro_Salazar_Arquitecto_TI.pdf");
+    } catch (err) {
+      console.error("Direct PDF export error, falling back to print", err);
+      handlePrint();
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
 
   const handlePrint = () => {
     const originalTitle = document.title;
@@ -45,43 +61,43 @@ export default function CVPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 py-8 px-4 sm:px-6 font-sans">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 py-8 px-4 sm:px-6 font-sans">
       
       {/* Top Action & Navigation Bar (Strictly hidden when saving or printing to PDF) */}
-      <div className="no-print max-w-4xl mx-auto mb-8 bg-slate-950/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md">
+      <div className="no-print max-w-4xl mx-auto mb-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md">
         
         {/* Back Link */}
         <Link 
           href="/"
-          className="flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-sky-400 transition-colors"
+          className="flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Volver a la Web ProfileOS</span>
         </Link>
 
         {/* View Mode Switcher */}
-        <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+        <div className="flex items-center gap-1.5 bg-neutral-950 p-1 rounded-xl border border-neutral-800">
           <button
             onClick={() => setViewMode("ats")}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
               viewMode === "ats"
-                ? "bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-neutral-800 text-white border border-neutral-700 font-semibold shadow-sm"
+                : "text-neutral-400 hover:text-neutral-200"
             }`}
           >
-            <ShieldCheck className="w-3.5 h-3.5" />
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             <span>ATS Estricto</span>
           </button>
 
           <button
             onClick={() => setViewMode("visual")}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
               viewMode === "visual"
-                ? "bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-neutral-800 text-white border border-neutral-700 font-semibold shadow-sm"
+                : "text-neutral-400 hover:text-neutral-200"
             }`}
           >
-            <Eye className="w-3.5 h-3.5" />
+            <Eye className="w-3.5 h-3.5 text-neutral-300" />
             <span>Ejecutivo Visual</span>
           </button>
         </div>
@@ -90,19 +106,39 @@ export default function CVPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-slate-100 hover:border-slate-700 transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-medium bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-all active:scale-95"
             title="Copiar enlace directo al CV"
           >
             {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
-            <span>{copiedLink ? "¡Copiado!" : "Compartir Enlace"}</span>
+            <span>{copiedLink ? "¡Copiado!" : "Compartir"}</span>
           </button>
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 border border-sky-400/40 transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all active:scale-95"
+            title="Imprimir vía diálogo nativo"
           >
-            <Printer className="w-4 h-4" />
-            <span>Descargar / Guardar PDF</span>
+            <Printer className="w-3.5 h-3.5" />
+            <span>Imprimir</span>
+          </button>
+
+          <button
+            onClick={handleDownloadDirectPDF}
+            disabled={isGeneratingPDF}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold bg-white text-neutral-950 hover:bg-neutral-100 shadow-lg border border-neutral-200 transition-all active:scale-95 disabled:opacity-50"
+            title="Descargar archivo PDF limpio directamente"
+          >
+            {isGeneratingPDF ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-neutral-950" />
+                <span>Generando PDF...</span>
+              </>
+            ) : (
+              <>
+                <Download className="w-3.5 h-3.5 text-neutral-950" />
+                <span>Descargar PDF</span>
+              </>
+            )}
           </button>
         </div>
 
@@ -120,7 +156,7 @@ export default function CVPage() {
       </main>
 
       {/* Subtle Bottom Caption (Hidden on print) */}
-      <div className="no-print max-w-4xl mx-auto mt-6 text-center text-xs font-mono text-slate-500 flex items-center justify-center gap-2">
+      <div className="no-print max-w-4xl mx-auto mt-6 text-center text-xs font-mono text-neutral-500 flex items-center justify-center gap-2">
         <FileCheck2 className="w-3.5 h-3.5 text-emerald-400" />
         <span>Documento generado con datos reales auditados por cv-architect · Sin datos inventados</span>
       </div>

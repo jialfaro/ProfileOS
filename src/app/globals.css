@@ -37,10 +37,11 @@ body {
 /* ========================================================= */
 /* PRINT MEDIA STYLING (Strict ATS & Executive PDF Output)   */
 /* Ensures ONLY the CV document is printed, starting at p. 1 */
+/* ZERO blue borders, ZERO outlines, ZERO web chrome        */
 /* ========================================================= */
 @media print {
   @page {
-    margin: 12mm 15mm 12mm 15mm;
+    margin: 8mm 12mm 8mm 12mm;
     size: A4 portrait;
   }
 
@@ -49,7 +50,7 @@ body {
   body {
     background: #ffffff !important;
     background-color: #ffffff !important;
-    color: #0f172a !important;
+    color: #171717 !important;
     font-size: 10pt !important;
     line-height: 1.35 !important;
     margin: 0 !important;
@@ -86,6 +87,8 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   /* Hide all siblings of #export-section or #cv-printable-area inside main */
@@ -105,36 +108,46 @@ body {
     display: none !important;
   }
 
-  /* The printable CV sheet itself */
+  /* The printable CV sheet itself - Zero blue borders, pure print styling */
   #cv-printable-area {
     display: block !important;
     visibility: visible !important;
     box-shadow: none !important;
     border: none !important;
+    outline: none !important;
     border-radius: 0 !important;
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #171717 !important;
+  }
+
+  /* Force all borders in print to be subtle neutral gray (no blue tint) */
+  #cv-printable-area * {
+    border-color: #d4d4d8 !important;
+    outline: none !important;
   }
 
   /* Prevent split of blocks across page breaks */
   .cv-experience-block {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    margin-bottom: 10pt !important;
+    margin-bottom: 8pt !important;
   }
 
   h1, h2, h3 {
     page-break-after: avoid !important;
     break-after: avoid !important;
-    color: #020617 !important;
+    color: #0a0a0a !important;
   }
 
-  a {
-    color: #0f172a !important;
+  /* Hyperlinks: Clean monochrome without underlines or blue colors */
+  a, a:visited, a:hover, a:active {
+    color: #171717 !important;
     text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
   }
 }
