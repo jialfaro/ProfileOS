@@ -82,6 +82,18 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
           </button>
 
           <button
+            onClick={() => handleNav("machine")}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all ${
+              activeSection === "machine"
+                ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            <Cpu className="w-3.5 h-3.5 text-amber-400" />
+            <span>Máquina 3D</span>
+          </button>
+
+          <button
             onClick={() => handleNav("timeline")}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all ${
               activeSection === "timeline"

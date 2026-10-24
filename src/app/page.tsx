@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { PROFILE_DATA, Experience } from "@/data/profile";
 import { ARCHITECTURE_NODES, ArchitectureNode } from "@/data/architectureNodes";
 import { ThreeCanvas } from "@/components/ThreeCanvas";
@@ -11,6 +12,8 @@ import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import { JobAdapter } from "@/components/JobAdapter";
 import { ExportStudio } from "@/components/ExportStudio";
 import { Footer } from "@/components/Footer";
+import ArchitectureMachine3D from "@/components/ui/ArchitectureMachine3D";
+import { Maximize2, Cpu } from "lucide-react";
 import { playNodeSelect, playTactileClick } from "@/lib/sound";
 
 export default function Home() {
@@ -93,7 +96,51 @@ export default function Home() {
           onExploreTimeline={() => scrollToSection("timeline")}
           onOpenAdapter={() => scrollToSection("adapter")}
           onExport={() => scrollToSection("export")}
+          onExploreMachine={() => scrollToSection("machine")}
         />
+
+        {/* Interactive 3D Architecture Machine Section */}
+        <section
+          id="machine-section"
+          className="no-print relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 space-y-4"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/75 border border-slate-800 shadow-xl backdrop-blur-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-sm shadow-amber-400/50" />
+                <h2 className="text-base sm:text-lg font-bold font-mono text-slate-100 uppercase tracking-tight">
+                  Máquina 3D de Arquitectura Empresarial
+                </h2>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-950 text-sky-300 border border-sky-800/60 hidden sm:inline-block">
+                  Procedural Three.js
+                </span>
+              </div>
+              <p className="text-xs font-mono text-slate-400 max-w-2xl">
+                Inspección interactiva de los 5 núcleos de arquitectura de Alexis: Gateway Zero-Trust (BCP), Streaming Kafka (Mambu), Dominio Spring Boot, Observabilidad Dynatrace y Gobierno Multi-Cloud.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Link
+                href="/architecture"
+                onClick={() => playTactileClick()}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/40 text-xs font-mono transition-all group"
+              >
+                <Maximize2 className="w-3.5 h-3.5 text-sky-400 group-hover:scale-110 transition-transform" />
+                <span>Pantalla Completa</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* 3D Machine Frame */}
+          <div className="relative w-full h-[620px] rounded-2xl overflow-hidden border border-slate-800/90 shadow-2xl bg-[#02040a]">
+            <ArchitectureMachine3D
+              height="100%"
+              selectedStation={selectedNodeId || undefined}
+              onStationSelect={handleSelectNode}
+            />
+          </div>
+        </section>
 
         {/* Experience & Decisions Ledger */}
         <ExperienceTimeline experiences={PROFILE_DATA.experiences} />

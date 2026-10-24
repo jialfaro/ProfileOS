@@ -30,6 +30,7 @@ interface HeroProps {
   onExploreTimeline: () => void;
   onOpenAdapter: () => void;
   onExport: () => void;
+  onExploreMachine?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -40,7 +41,8 @@ export const Hero: React.FC<HeroProps> = ({
   onSetLayerFilter,
   onExploreTimeline,
   onOpenAdapter,
-  onExport
+  onExport,
+  onExploreMachine
 }) => {
   const layers = [
     "Gateway & Governance",
@@ -238,6 +240,17 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                playTactileClick();
+                onExploreMachine?.();
+              }}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/40 text-xs font-mono transition-all"
+            >
+              <Cpu className="w-3.5 h-3.5" />
+              <span>Máquina 3D</span>
+            </button>
+
             <button
               onClick={() => {
                 playTactileClick();
