@@ -41,11 +41,10 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
   };
 
   const navItems = [
-    { id: "hero", label: "Topología 3D", icon: Compass, accent: "sky" },
-    { id: "machine", label: "Máquina 3D", icon: Cpu, accent: "amber" },
-    { id: "timeline", label: "Trayectoria", icon: Layers, accent: "indigo" },
-    { id: "adapter", label: "Match Vacante", icon: Sparkles, accent: "emerald" },
-    { id: "export", label: "Descargar CV", icon: FileText, accent: "teal" },
+    { id: "hero", label: "Inicio & 3D", icon: Compass, accent: "amber" },
+    { id: "systems", label: "Sistemas Diseñados", icon: Cpu, accent: "amber" },
+    { id: "journey", label: "Trayectoria", icon: Layers, accent: "stone" },
+    { id: "studio", label: "Match & CV ATS", icon: Sparkles, accent: "emerald" },
   ];
 
   return (
