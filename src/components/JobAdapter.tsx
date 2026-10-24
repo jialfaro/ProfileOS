@@ -4,16 +4,16 @@ import React, { useState } from "react";
 import { JOB_PRESETS, CandidateProfile, Experience } from "@/data/profile";
 import { 
   Sparkles, 
-  CheckCircle, 
+  CheckCircle2, 
   AlertTriangle, 
   ArrowRight, 
-  Copy, 
   Wand2, 
-  FileCheck, 
-  ListOrdered,
   Search,
-  BookOpen
+  Check,
+  ShieldCheck,
+  Target
 } from "lucide-react";
+import { playTactileClick } from "@/lib/sound";
 
 interface JobAdapterProps {
   profile: CandidateProfile;
@@ -31,7 +31,7 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
   const [selectedPreset, setSelectedPreset] = useState<string>(JOB_PRESETS[0].id);
   const [jobText, setJobText] = useState<string>(JOB_PRESETS[0].description);
   const [customRoleTitle, setCustomRoleTitle] = useState<string>(JOB_PRESETS[0].title);
-  const [copiedSuccess, setCopiedSuccess] = useState<boolean>(false);
+  const [applied, setApplied] = useState<boolean>(false);
 
   // Skill pool from Alexis's verified profile
   const allVerifiedSkills = Array.from(
@@ -99,6 +99,7 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
   const analysis = analyzeJob();
 
   const handleSelectPreset = (presetId: string) => {
+    playTactileClick();
     const preset = JOB_PRESETS.find((p) => p.id === presetId);
     if (!preset) return;
     setSelectedPreset(preset.id);
@@ -106,9 +107,12 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
     setJobText(
       `${preset.description}\n\nRequisitos deseados:\n- Experiencia sólida en: ${preset.keywords.join(", ")}\n- Capacidad de interlocución con negocio y liderazgo de squads.`
     );
+    setApplied(false);
   };
 
   const handleApply = () => {
+    playTactileClick();
+    setApplied(true);
     onApplyTailoring({
       targetTitle: customRoleTitle,
       customSummary: analysis.tailoredSummary,
@@ -120,141 +124,162 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
     <section id="adapter-section" className="no-print py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
       
       {/* Section Header */}
-      <div className="space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-950/60 border border-amber-800/40 text-amber-400 text-xs font-mono">
-          <Wand2 className="w-3.5 h-3.5" />
-          <span>Motor de Adaptación Dinámico (cv-architect)</span>
+      <div className="space-y-3 text-center sm:text-left">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle text-amber-400 text-xs font-sans">
+          <Target className="w-3.5 h-3.5 text-amber-400" />
+          <span className="font-medium">Evaluador de Compatibilidad en Tiempo Real</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-          Adaptar CV a una Vacante u Oferta Laboral
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">
+          Simulador de Match con Vacantes
         </h2>
-        <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
-          Ingresa la descripción de una vacante para analizar el ajuste técnico en tiempo real, priorizar los logros con mayor afinidad y detectar posibles brechas de conocimientos sin falsear información.
+        <p className="text-sm sm:text-base text-slate-300 max-w-3xl font-sans">
+          Evalúa al instante la compatibilidad del perfil de Alexis con cualquier requerimiento de contratación técnica, priorizando las experiencias afines sin falsear datos.
         </p>
       </div>
 
-      {/* Preset Selector */}
-      <div className="space-y-2">
-        <label className="text-xs font-mono font-medium text-slate-400">
-          O selecciona un arquetipo de cargo preconfigurado:
+      {/* Preset Selector Grid */}
+      <div className="space-y-2.5">
+        <label className="text-xs font-sans font-medium text-slate-400">
+          Selecciona un rol objetivo predefinido o personaliza los requisitos:
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-          {JOB_PRESETS.map((preset) => (
-            <button
-              key={preset.id}
-              onClick={() => handleSelectPreset(preset.id)}
-              className={`p-3 rounded-xl text-left border transition-all ${
-                selectedPreset === preset.id
-                  ? "bg-sky-950/60 border-sky-500/80 shadow-md shadow-sky-500/10 text-sky-100"
-                  : "bg-slate-900/40 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
-              }`}
-            >
-              <div className="font-semibold text-xs leading-snug">{preset.title}</div>
-            </button>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {JOB_PRESETS.map((preset) => {
+            const isSelected = selectedPreset === preset.id;
+            return (
+              <button
+                key={preset.id}
+                onClick={() => handleSelectPreset(preset.id)}
+                className={`p-3.5 rounded-2xl text-left border transition-all ${
+                  isSelected
+                    ? "glass-panel border-sky-400/80 shadow-lg shadow-sky-500/10 text-white"
+                    : "glass-card-interactive text-slate-400 hover:text-white"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-sky-400 animate-pulse" : "bg-slate-600"}`} />
+                  <span className="font-bold text-xs font-sans text-slate-200">
+                    {preset.title}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 line-clamp-2">
+                  {preset.keywords.slice(0, 3).join(", ")}
+                </p>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Main Adapter Grid: Input on Left, Live Analysis on Right */}
+      {/* Main Two-Column Analysis Console */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left: Input Textarea */}
+        {/* Left Column: Requirements Input */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md space-y-4">
+          <div className="p-5 rounded-2xl glass-panel space-y-4">
             
             <div>
-              <label className="block text-xs font-mono text-slate-400 mb-1">
-                Cargo / Rol Objetivo:
+              <label className="block text-xs font-sans font-medium text-slate-300 mb-1.5">
+                Cargo / Rol Solicitado:
               </label>
               <input
                 type="text"
                 value={customRoleTitle}
-                onChange={(e) => setCustomRoleTitle(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-sm font-sans focus:outline-none focus:border-sky-500 transition-colors"
+                onChange={(e) => {
+                  setCustomRoleTitle(e.target.value);
+                  setApplied(false);
+                }}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-white text-sm font-sans focus:outline-none focus:border-sky-500 transition-colors"
                 placeholder="Ej. Arquitecto de Soluciones Senior"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-400 mb-1">
+              <label className="block text-xs font-sans font-medium text-slate-300 mb-1.5">
                 Descripción de la Oferta / Requisitos Técnicos:
               </label>
               <textarea
-                rows={9}
+                rows={8}
                 value={jobText}
                 onChange={(e) => {
                   setJobText(e.target.value);
                   setSelectedPreset("");
+                  setApplied(false);
                 }}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-sky-500 transition-colors resize-none"
-                placeholder="Pega aquí los requisitos de la vacante de LinkedIn, Bumeran, etc..."
+                className="w-full px-3.5 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 text-xs font-mono leading-relaxed focus:outline-none focus:border-sky-500 transition-colors resize-none"
+                placeholder="Pega aquí los requisitos de la vacante (LinkedIn, Bumeran, etc.)..."
               />
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono">
-              <span>{jobText.length} caracteres analizados</span>
-              <span>Análisis automático activo</span>
+            <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+              <span>{jobText.length} caracteres evaluados</span>
+              <span className="text-emerald-400 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                Motor de afinidad activo
+              </span>
             </div>
 
           </div>
         </div>
 
-        {/* Right: Real-time Compatibility Matrix */}
+        {/* Right Column: Compatibility Gauge & Tailored Output */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md space-y-5">
+          <div className="p-5 rounded-2xl glass-panel space-y-5">
             
-            {/* Score & Match Level */}
-            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-950/80 border border-slate-800">
+            {/* Score Metric Card */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
               <div>
-                <span className="text-xs font-mono text-slate-400">Afinidad Técnica Comprobable</span>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-extrabold font-mono text-emerald-400">
+                <span className="text-xs font-sans font-medium text-slate-400">Afinidad Comprobable con el CV</span>
+                <div className="flex items-baseline gap-2.5">
+                  <span className="text-3xl sm:text-4xl font-extrabold font-sans text-emerald-400">
                     {analysis.score}%
                   </span>
-                  <span className="text-xs text-slate-400 font-mono">Alineación con experiencia real</span>
+                  <span className="text-xs text-slate-400 font-sans">
+                    {analysis.score >= 80 ? "Alta coincidencia técnica" : "Coincidencia moderada"}
+                  </span>
                 </div>
               </div>
-              <div className="px-3 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-800/60 text-emerald-300 text-xs font-semibold">
-                Excelente Match
+
+              <div className="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                Verificado cv-architect
               </div>
             </div>
 
-            {/* Matching Strengths */}
+            {/* Matched Strengths */}
             <div className="space-y-2">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-400">
-                <CheckCircle className="w-4 h-4" />
-                <span>Coincidencias Fuertes Respaldadas ({analysis.matchedSkills.length}):</span>
+              <div className="flex items-center gap-1.5 text-xs font-sans font-semibold text-emerald-400">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Habilidades Confirmadas en el Perfil ({analysis.matchedSkills.length}):</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {analysis.matchedSkills.length > 0 ? (
                   analysis.matchedSkills.map((sk) => (
                     <span
                       key={sk}
-                      className="px-2.5 py-0.5 text-xs font-mono rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40"
+                      className="px-2.5 py-1 text-xs font-mono rounded-lg bg-emerald-950/50 text-emerald-300 border border-emerald-800/40"
                     >
                       ✓ {sk}
                     </span>
                   ))
                 ) : (
-                  <span className="text-xs text-slate-500 font-mono">
-                    Ingresa tecnologías para identificar coincidencias.
+                  <span className="text-xs text-slate-500 font-sans">
+                    Ingresa términos o requisitos para evaluar afinidad.
                   </span>
                 )}
               </div>
             </div>
 
-            {/* Gaps / Unverified terms */}
+            {/* Honest Gap Disclosure */}
             {analysis.detectedGaps.length > 0 && (
-              <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-800/40 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-amber-400">
+              <div className="p-3.5 rounded-xl bg-amber-950/20 border border-amber-900/30 space-y-1.5">
+                <div className="flex items-center gap-1.5 text-xs font-sans font-semibold text-amber-400">
                   <AlertTriangle className="w-3.5 h-3.5" />
-                  <span>Términos no confirmados en CV (No falsear):</span>
+                  <span>Tecnologías no declaradas en el perfil (Regla de honestidad):</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {analysis.detectedGaps.map((gap) => (
                     <span
                       key={gap}
-                      className="px-2 py-0.5 text-[11px] font-mono rounded bg-amber-950/60 text-amber-300 border border-amber-800/40"
+                      className="px-2 py-0.5 text-[11px] font-mono rounded bg-amber-950/50 text-amber-300 border border-amber-800/40"
                     >
                       ! {gap}
                     </span>
@@ -263,15 +288,14 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
               </div>
             )}
 
-            {/* Tailored Summary Generated */}
+            {/* Dynamic Tailored Summary */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-semibold text-slate-300">
-                  Extracto Ejecutivo Adaptado:
+                <span className="text-xs font-sans font-semibold text-slate-200">
+                  Resumen Ejecutivo Adaptado para esta Vacante:
                 </span>
-                <span className="text-[10px] text-sky-400 font-mono">Regla cv-architect</span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed p-3 rounded-lg bg-slate-950 border border-slate-800/80 italic font-sans">
+              <p className="text-xs text-slate-300 leading-relaxed p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 italic font-sans">
                 "{analysis.tailoredSummary}"
               </p>
             </div>
@@ -279,10 +303,24 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
             {/* Apply Button */}
             <button
               onClick={handleApply}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-medium text-sm shadow-lg shadow-sky-500/20 border border-sky-400/30 transition-all active:scale-[0.98]"
+              className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                applied
+                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/20"
+                  : "bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 active:scale-95"
+              }`}
             >
-              <span>Aplicar al CV & Abrir Export Studio</span>
-              <ArrowRight className="w-4 h-4" />
+              {applied ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>¡Adaptación Aplicada al CV! (Deslizando a Exportar...)</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  <span>Aplicar esta Adaptación al CV y Previsualizar</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
 
           </div>

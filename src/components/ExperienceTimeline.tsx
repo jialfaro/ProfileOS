@@ -11,10 +11,11 @@ import {
   ChevronDown, 
   ChevronUp, 
   Layers, 
-  Filter,
   CheckCircle2,
-  ExternalLink
+  Sparkles,
+  Award
 } from "lucide-react";
+import { playTactileClick } from "@/lib/sound";
 
 interface ExperienceTimelineProps {
   experiences: Experience[];
@@ -38,40 +39,56 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
   });
 
   const toggleExpand = (id: string) => {
+    playTactileClick();
     setExpandedId((prev) => (prev === id ? null : id));
+  };
+
+  const getCompanyInitials = (company: string, client?: string) => {
+    if (client && client.includes("BCP")) return "BCP";
+    if (company.includes("TCS")) return "TCS";
+    if (company.includes("OM Technology")) return "OM";
+    if (company.includes("Rimac") || company.includes("Rímac")) return "RÍM";
+    if (company.includes("Laureate")) return "LAU";
+    if (company.includes("Mibanco")) return "MIB";
+    if (company.includes("Indra")) return "IND";
+    if (company.includes("Experis")) return "EXP";
+    return company.slice(0, 3).toUpperCase();
   };
 
   return (
     <section id="timeline-section" className="no-print py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
       
-      {/* Header */}
-      <div className="space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-sky-950/60 border border-sky-800/40 text-sky-400 text-xs font-mono">
-          <Layers className="w-3.5 h-3.5" />
-          <span>Historial Arquitectónico Verificado</span>
+      {/* Section Header */}
+      <div className="space-y-3 text-center sm:text-left">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle text-sky-400 text-xs font-sans">
+          <Layers className="w-3.5 h-3.5 text-sky-400" />
+          <span className="font-medium">Historial Arquitectónico & Decisiones Técnicas</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-          Trayectoria Profesional & Decisiones Técnicas
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">
+          Trayectoria Profesional Comprobada
         </h2>
-        <p className="text-sm sm:text-base text-slate-400 max-w-3xl">
-          Evidencia de impacto directo en squads bancarios y aseguradores, estructurada bajo la fórmula de logro técnico verificable (acción + alcance + decisión + impacto).
+        <p className="text-sm sm:text-base text-slate-300 max-w-3xl font-sans">
+          Evidencia de impacto directo en squads bancarios y aseguradores, estructurada bajo la fórmula de logro técnico verificable (acción + alcance + decisión + impacto verificable).
         </p>
       </div>
 
-      {/* Filters Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+      {/* Filter Tabs Bar */}
+      <div className="p-4 rounded-2xl glass-panel space-y-3">
         
         {/* Domain Filter */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-slate-400 font-mono mr-1">Sector:</span>
+          <span className="text-xs text-slate-400 font-sans font-medium mr-2">Sector:</span>
           {domains.map((dom) => (
             <button
               key={dom}
-              onClick={() => setDomainFilter(dom)}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+              onClick={() => {
+                playTactileClick();
+                setDomainFilter(dom);
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all ${
                 domainFilter === dom
-                  ? "bg-sky-500/20 text-sky-300 border border-sky-500/40 shadow-sm"
-                  : "bg-slate-950/40 text-slate-400 hover:text-slate-200 border border-slate-800/80"
+                  ? "bg-sky-500/20 text-sky-300 border border-sky-500/50 shadow-sm"
+                  : "bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-slate-800"
               }`}
             >
               {dom}
@@ -80,16 +97,19 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
         </div>
 
         {/* Specialty Filter */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-slate-400 font-mono mr-1">Enfoque:</span>
+        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/5">
+          <span className="text-xs text-slate-400 font-sans font-medium mr-2">Especialidad:</span>
           {specialties.map((spec) => (
             <button
               key={spec}
-              onClick={() => setSpecialtyFilter(spec)}
-              className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+              onClick={() => {
+                playTactileClick();
+                setSpecialtyFilter(spec);
+              }}
+              className={`px-3 py-1 rounded-xl text-xs font-sans font-medium transition-all ${
                 specialtyFilter === spec
-                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shadow-sm"
-                  : "bg-slate-950/40 text-slate-400 hover:text-slate-200 border border-slate-800/80"
+                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/50 shadow-sm"
+                  : "bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-slate-800"
               }`}
             >
               {spec}
@@ -100,17 +120,18 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
       </div>
 
       {/* Experience List */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         {filteredExperiences.map((exp) => {
           const isExpanded = expandedId === exp.id;
+          const initials = getCompanyInitials(exp.company, exp.client);
 
           return (
             <div
               key={exp.id}
-              className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${
+              className={`rounded-2xl transition-all duration-300 overflow-hidden ${
                 isExpanded
-                  ? "bg-slate-900/80 border-sky-500/40 shadow-xl shadow-sky-500/5"
-                  : "bg-slate-900/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/60"
+                  ? "glass-panel border-sky-500/40 shadow-xl shadow-sky-500/5"
+                  : "glass-card-interactive"
               }`}
             >
               {/* Card Header (Clickable) */}
@@ -118,50 +139,57 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
                 onClick={() => toggleExpand(exp.id)}
                 className="p-5 sm:p-6 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
-                <div className="space-y-1.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-bold text-lg sm:text-xl text-slate-100 group-hover:text-sky-300 transition-colors">
-                      {exp.role}
-                    </span>
-                    {exp.client && (
-                      <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800/50">
-                        Cliente: {exp.client}
-                      </span>
-                    )}
-                    <span className="px-2.5 py-0.5 text-xs font-mono rounded-md bg-slate-800 text-slate-300 border border-slate-700">
-                      {exp.domain}
-                    </span>
+                <div className="flex items-start gap-4">
+                  {/* Monogram Badge */}
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 flex items-center justify-center font-bold font-mono text-sm text-sky-400 shrink-0 shadow-md">
+                    {initials}
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400">
-                    <span className="flex items-center gap-1.5 font-medium text-slate-300">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                      {exp.company}
-                    </span>
-                    <span className="flex items-center gap-1.5 font-mono">
-                      <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                      {exp.period}
-                    </span>
-                    <span className="flex items-center gap-1.5 font-mono">
-                      <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                      {exp.location}
-                    </span>
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-bold text-lg sm:text-xl text-white font-sans group-hover:text-sky-300 transition-colors">
+                        {exp.role}
+                      </h3>
+                      {exp.client && (
+                        <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-800/50">
+                          Cliente: {exp.client}
+                        </span>
+                      )}
+                      <span className="px-2 py-0.5 text-[11px] font-mono rounded-md bg-slate-800/80 text-slate-300 border border-slate-700">
+                        {exp.domain}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-sans">
+                      <span className="flex items-center gap-1.5 font-medium text-slate-200">
+                        <Building2 className="w-3.5 h-3.5 text-sky-400" />
+                        {exp.company}
+                      </span>
+                      <span className="flex items-center gap-1.5 font-mono text-slate-300">
+                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                        {exp.period}
+                      </span>
+                      <span className="flex items-center gap-1.5 text-slate-400">
+                        <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                        {exp.location}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3 self-end md:self-center">
-                  <div className="hidden sm:flex flex-wrap gap-1.5 justify-end">
+                  <div className="hidden lg:flex flex-wrap gap-1.5 justify-end max-w-xs">
                     {exp.specialties.map((s) => (
                       <span
                         key={s}
-                        className="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-800/80 text-sky-300 border border-slate-700/60"
+                        className="px-2 py-0.5 text-[11px] font-sans font-medium rounded-full bg-slate-800/80 text-sky-300 border border-slate-700/60"
                       >
                         {s}
                       </span>
                     ))}
                   </div>
 
-                  <div className="p-1 rounded-lg bg-slate-800/60 text-slate-400 group-hover:text-slate-200">
+                  <div className="p-2 rounded-xl bg-slate-800/60 text-slate-400 group-hover:text-white transition-colors">
                     {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                   </div>
                 </div>
@@ -169,26 +197,27 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
               {/* Card Expanded Content */}
               {isExpanded && (
-                <div className="px-5 pb-6 sm:px-6 space-y-5 border-t border-slate-800/80 pt-5">
+                <div className="px-5 pb-6 sm:px-6 space-y-6 border-t border-white/5 pt-5 animate-in fade-in duration-200">
                   
-                  {/* Summary */}
-                  <p className="text-sm text-slate-300 font-light italic">
+                  {/* Verified Summary Callout */}
+                  <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-sm text-slate-300 font-sans leading-relaxed italic border-l-4 border-l-sky-500">
                     "{exp.summary}"
-                  </p>
+                  </div>
 
                   {/* Bullet Points with Technical Formula */}
                   <div className="space-y-3">
-                    <h4 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
-                      Contribuciones y Logros Comprobables:
-                    </h4>
-                    <ul className="space-y-2.5">
+                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
+                      <Award className="w-4 h-4 text-emerald-400" />
+                      <span>Logros Comprobables & Responsabilidades:</span>
+                    </div>
+                    <ul className="space-y-3">
                       {exp.bulletPoints.map((bp, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300 leading-relaxed">
+                        <li key={i} className="flex items-start gap-3 text-sm text-slate-300 leading-relaxed font-sans">
                           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <div>
-                            <span className="font-semibold text-slate-100">{bp.action} </span>
+                            <span className="font-semibold text-white">{bp.action} </span>
                             <span>{bp.scope}, </span>
-                            <span className="text-sky-300">{bp.impact}.</span>
+                            <span className="text-sky-300 font-medium">{bp.impact}.</span>
                           </div>
                         </li>
                       ))}
@@ -197,32 +226,38 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
                   {/* Architecture Decisions (ADRs) */}
                   {exp.architectureDecisions && exp.architectureDecisions.length > 0 && (
-                    <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
-                      <div className="flex items-center gap-1.5 text-xs font-mono font-semibold text-amber-400">
-                        <GitBranch className="w-3.5 h-3.5" />
-                        <span>Decisiones Arquitectónicas Clave (ADRs):</span>
+                    <div className="p-4 rounded-xl bg-slate-950/80 border border-amber-900/30 space-y-2.5">
+                      <div className="flex items-center gap-2 text-xs font-mono font-semibold text-amber-300 uppercase tracking-wider">
+                        <GitBranch className="w-4 h-4" />
+                        <span>Decisiones Técnicas Clave (ADRs Evaluados):</span>
                       </div>
-                      <ul className="list-disc list-inside space-y-1 text-xs text-slate-300">
-                        {exp.architectureDecisions.map((ad, idx) => (
-                          <li key={idx} className="leading-relaxed">
-                            {ad}
+                      <ul className="space-y-2">
+                        {exp.architectureDecisions.map((adr, index) => (
+                          <li key={index} className="text-xs text-slate-300 font-sans leading-relaxed flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
+                            <span>{adr}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
 
-                  {/* Technologies Stack */}
-                  <div className="flex flex-wrap items-center gap-1.5 pt-2">
-                    <span className="text-xs text-slate-400 font-mono mr-1">Stack:</span>
-                    {exp.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-1 text-xs font-mono rounded-md bg-slate-950 text-slate-300 border border-slate-800 shadow-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Tech Stack Pills */}
+                  <div className="space-y-2 pt-1 border-t border-white/5">
+                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
+                      <Code2 className="w-4 h-4 text-purple-400" />
+                      <span>Tecnologías & Protocolos Aplicados:</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {exp.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 text-xs font-mono rounded-lg bg-slate-900 text-slate-200 border border-slate-800"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                 </div>
@@ -230,12 +265,6 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
             </div>
           );
         })}
-
-        {filteredExperiences.length === 0 && (
-          <div className="p-8 text-center rounded-xl bg-slate-900/40 border border-slate-800 text-slate-400 font-mono text-sm">
-            No se encontraron experiencias para el filtro seleccionado.
-          </div>
-        )}
       </div>
 
     </section>

@@ -16,9 +16,6 @@ import {
   ShieldCheck, 
   Code,
   Undo2,
-  Mail,
-  Phone,
-  MapPin,
   ExternalLink,
   Loader2
 } from "lucide-react";
@@ -50,8 +47,8 @@ export const ExportStudio: React.FC<ExportStudioProps> = ({
 
   const triggerConfetti = () => {
     confetti({
-      particleCount: 80,
-      spread: 70,
+      particleCount: 75,
+      spread: 60,
       origin: { y: 0.6 }
     });
   };
@@ -165,36 +162,36 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
   return (
     <section id="export-section" className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
       
-      {/* Interactive Controls & Toolbars (Hidden completely during print) */}
+      {/* Controls & Toolbar (Hidden during print) */}
       <div className="no-print space-y-6">
         
-        {/* Header and Controls */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-sky-950/60 border border-sky-800/40 text-sky-400 text-xs font-mono mb-2">
+        {/* Header and Actions */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-subtle text-sky-400 text-xs font-sans">
               <FileText className="w-3.5 h-3.5" />
-              <span>Centro de Exportación & Impresión</span>
+              <span>Dossier Ejecutivo & Exportación</span>
             </div>
-            <h2 className="text-3xl font-extrabold tracking-tight text-slate-100 font-sans">
-              Export Studio & Descarga de CV
+            <h2 className="text-3xl font-extrabold tracking-tight text-white font-sans">
+              Descarga y Lectura de CV
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              Visualiza y descarga únicamente el documento del CV limpio (formato ATS o Ejecutivo) sin elementos de la plataforma web.
+            <p className="text-xs sm:text-sm text-slate-300 font-sans">
+              Documento estructurado bajo estándares ATS e inspección ejecutiva, listo para descarga directa en PDF sin marcas web.
             </p>
           </div>
 
           {/* Action Buttons Toolbar */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             {isTailored && (
               <button
                 onClick={() => {
                   playTactileClick();
                   onResetTailoring();
                 }}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
                 title="Restaurar a versión maestra"
               >
-                <Undo2 className="w-3.5 h-3.5" />
+                <Undo2 className="w-3.5 h-3.5 text-amber-400" />
                 <span>Restaurar Maestro</span>
               </button>
             )}
@@ -203,16 +200,16 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
               href="/cv"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all active:scale-95"
-              title="Abrir página dedicada exclusivamente al CV sin la plataforma web 3D"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              title="Abrir página dedicada exclusivamente al CV"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
               <span>Página Solo CV</span>
             </a>
 
             <button
               onClick={handleCopyMarkdown}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
             >
               {copiedType === "md" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedType === "md" ? "¡Copiado!" : "Markdown"}</span>
@@ -220,7 +217,7 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
 
             <button
               onClick={handleCopyJSON}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
             >
               {copiedType === "json" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Code className="w-3.5 h-3.5" />}
               <span>{copiedType === "json" ? "¡Copiado!" : "JSON"}</span>
@@ -228,27 +225,28 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
 
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 transition-all active:scale-95"
-              title="Imprimir o guardar como PDF a través del diálogo nativo del navegador"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              title="Imprimir o guardar con el diálogo nativo"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Imprimir</span>
             </button>
 
+            {/* Primary Download Button */}
             <button
               onClick={handleDownloadDirectPDF}
               disabled={isGeneratingPDF}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold bg-neutral-100 hover:bg-white text-neutral-950 shadow-md border border-neutral-300 transition-all active:scale-95 disabled:opacity-50"
-              title="Generar y descargar archivo .pdf limpio directamente a tu equipo"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-sky-400 via-sky-500 to-blue-600 hover:from-sky-300 hover:to-blue-500 text-slate-950 shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50"
+              title="Generar y descargar archivo .pdf limpio"
             >
               {isGeneratingPDF ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-neutral-900" />
+                  <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
                   <span>Generando PDF...</span>
                 </>
               ) : (
                 <>
-                  <Download className="w-3.5 h-3.5 text-neutral-900" />
+                  <Download className="w-4 h-4 text-slate-950" />
                   <span>Descargar PDF</span>
                 </>
               )}
@@ -256,67 +254,69 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
           </div>
         </div>
 
-        {/* Tailoring Status Banner */}
+        {/* Tailoring Alert Banner */}
         {isTailored && (
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-700 text-neutral-200 text-xs">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs font-sans">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-amber-400" />
               <span>
-                Documento adaptado para: <strong className="text-white font-mono">{displayTitle}</strong>
+                Documento adaptado para el cargo: <strong className="text-white font-medium">{displayTitle}</strong>
               </span>
             </div>
-            <span className="font-mono text-[11px] text-neutral-400">cv-architect applied</span>
+            <span className="font-mono text-[11px] text-amber-300">Regla cv-architect activa</span>
           </div>
         )}
 
-        {/* Mode Switcher */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 bg-neutral-900 p-1 rounded-xl border border-neutral-800">
+        {/* Mode Switcher Tabs */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-1 bg-slate-950/70 p-1 rounded-xl border border-white/10">
             <button
               onClick={() => {
                 playTactileClick();
                 setViewMode("ats");
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-sans font-medium transition-all ${
                 viewMode === "ats"
-                  ? "bg-neutral-800 text-white border border-neutral-600 shadow-sm"
-                  : "text-neutral-400 hover:text-neutral-200"
+                  ? "bg-slate-800 text-white shadow-sm border border-slate-700"
+                  : "text-slate-400 hover:text-slate-200"
               }`}
             >
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Vista ATS Estricta (Recomendada)</span>
+              <span>Vista ATS Estándar (Recomendada)</span>
             </button>
             <button
               onClick={() => {
                 playTactileClick();
                 setViewMode("visual");
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-sans font-medium transition-all ${
                 viewMode === "visual"
-                  ? "bg-neutral-800 text-white border border-neutral-600 shadow-sm"
-                  : "text-neutral-400 hover:text-neutral-200"
+                  ? "bg-slate-800 text-white shadow-sm border border-slate-700"
+                  : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              <Eye className="w-3.5 h-3.5 text-neutral-300" />
+              <Eye className="w-3.5 h-3.5 text-sky-400" />
               <span>Vista Ejecutiva Visual</span>
             </button>
           </div>
 
-          <span className="text-[11px] font-mono text-neutral-400">
-            Exportación limpia sin bordes de color ni elementos web
+          <span className="text-[11px] font-sans text-slate-400">
+            Exportación limpia de alta fidelidad sin bordes de color ni estilos web
           </span>
         </div>
 
       </div>
 
-      {/* Printable Document Sheet (ATS / Visual) */}
-      <CVDocument
-        profile={profile}
-        displayTitle={displayTitle}
-        displaySummary={displaySummary}
-        displayExperiences={displayExperiences}
-        viewMode={viewMode}
-      />
+      {/* Printable Document Sheet Frame */}
+      <div className="rounded-2xl overflow-hidden shadow-2xl shadow-black/80 border border-white/10">
+        <CVDocument
+          profile={profile}
+          displayTitle={displayTitle}
+          displaySummary={displaySummary}
+          displayExperiences={displayExperiences}
+          viewMode={viewMode}
+        />
+      </div>
 
     </section>
   );
