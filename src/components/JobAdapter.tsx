@@ -151,17 +151,17 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
                 onClick={() => handleSelectPreset(preset.id)}
                 className={`p-3.5 rounded-2xl text-left border transition-all ${
                   isSelected
-                    ? "glass-panel border-sky-400/80 shadow-lg shadow-sky-500/10 text-white"
-                    : "glass-card-interactive text-slate-400 hover:text-white"
+                    ? "glass-panel border-amber-400/70 shadow-lg shadow-amber-500/15 text-white"
+                    : "glass-card-interactive text-stone-400 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-sky-400 animate-pulse" : "bg-slate-600"}`} />
-                  <span className="font-bold text-xs font-sans text-slate-200">
+                  <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-amber-400 animate-pulse" : "bg-stone-600"}`} />
+                  <span className="font-bold text-xs font-sans text-stone-200">
                     {preset.title}
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 line-clamp-2">
+                <p className="text-[11px] text-stone-400 line-clamp-2">
                   {preset.keywords.slice(0, 3).join(", ")}
                 </p>
               </button>
@@ -303,10 +303,10 @@ export const JobAdapter: React.FC<JobAdapterProps> = ({
             {/* Apply Button */}
             <button
               onClick={handleApply}
-              className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 applied
                   ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/20"
-                  : "bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 active:scale-95"
+                  : "bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 shadow-lg shadow-amber-500/25 active:scale-95"
               }`}
             >
               {applied ? (

@@ -43,7 +43,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
 
     // Scene & Camera
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x02040a, 0.032);
+    scene.fog = new THREE.FogExp2(0x0c0d12, 0.032);
 
     const camera = new THREE.PerspectiveCamera(
       55,
@@ -115,16 +115,16 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
 
     // Connecting Lines (Event Streams & Service Mesh)
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
+      color: 0x475569,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.28,
       blending: THREE.AdditiveBlending
     });
 
     const activeLineMaterial = new THREE.LineBasicMaterial({
-      color: 0xf59e0b,
+      color: 0xd4af37,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending,
       linewidth: 2
     });
@@ -306,21 +306,21 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
       {/* Floating Hover Tooltip HUD in 3D Space */}
       {hoveredNode && (
         <div 
-          className="absolute top-20 left-1/2 -translate-x-1/2 pointer-events-none z-20 px-4 py-2 rounded-xl bg-slate-950/90 border border-slate-700/80 shadow-2xl backdrop-blur-xl text-center space-y-0.5 animate-in fade-in zoom-in-95 duration-150"
+          className="absolute top-20 left-1/2 -translate-x-1/2 pointer-events-none z-20 px-4 py-2.5 rounded-2xl bg-[#12141c]/95 border border-amber-500/30 shadow-2xl backdrop-blur-2xl text-center space-y-0.5 animate-in fade-in zoom-in-95 duration-150"
         >
           <div className="flex items-center justify-center gap-2">
             <span 
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: hoveredNode.color }}
             />
-            <span className="text-xs font-mono font-bold text-slate-100">
+            <span className="text-xs font-sans font-bold text-stone-100">
               {hoveredNode.name}
             </span>
           </div>
-          <p className="text-[11px] font-mono text-sky-400">
+          <p className="text-[11px] font-sans text-amber-300 font-medium">
             {hoveredNode.subsystem} ({hoveredNode.organization})
           </p>
-          <span className="text-[10px] text-slate-400 font-mono block">
+          <span className="text-[10px] text-stone-400 font-sans block">
             Click para inspeccionar decisiones técnicas (ADRs)
           </span>
         </div>

@@ -168,14 +168,14 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
         {/* Header and Actions */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-subtle text-sky-400 text-xs font-sans">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel-subtle text-amber-400 text-xs font-sans">
               <FileText className="w-3.5 h-3.5" />
               <span>Dossier Ejecutivo & Exportación</span>
             </div>
             <h2 className="text-3xl font-extrabold tracking-tight text-white font-sans">
               Descarga y Lectura de CV
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans">
+            <p className="text-xs sm:text-sm text-stone-300 font-sans">
               Documento estructurado bajo estándares ATS e inspección ejecutiva, listo para descarga directa en PDF sin marcas web.
             </p>
           </div>
@@ -188,7 +188,7 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
                   playTactileClick();
                   onResetTailoring();
                 }}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-stone-300 hover:text-white transition-all"
                 title="Restaurar a versión maestra"
               >
                 <Undo2 className="w-3.5 h-3.5 text-amber-400" />
@@ -200,16 +200,16 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
               href="/cv"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-stone-300 hover:text-white transition-all"
               title="Abrir página dedicada exclusivamente al CV"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
+              <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
               <span>Página Solo CV</span>
             </a>
 
             <button
               onClick={handleCopyMarkdown}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-stone-300 hover:text-white transition-all"
             >
               {copiedType === "md" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedType === "md" ? "¡Copiado!" : "Markdown"}</span>
@@ -217,7 +217,7 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
 
             <button
               onClick={handleCopyJSON}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-stone-300 hover:text-white transition-all"
             >
               {copiedType === "json" ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Code className="w-3.5 h-3.5" />}
               <span>{copiedType === "json" ? "¡Copiado!" : "JSON"}</span>
@@ -225,7 +225,7 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
 
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-slate-300 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-sans font-medium glass-panel text-stone-300 hover:text-white transition-all"
               title="Imprimir o guardar con el diálogo nativo"
             >
               <Printer className="w-3.5 h-3.5" />
@@ -236,17 +236,17 @@ ${profile.languages.map((l) => `- ${l.language}: ${l.level}${l.score ? ` (${l.sc
             <button
               onClick={handleDownloadDirectPDF}
               disabled={isGeneratingPDF}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-sky-400 via-sky-500 to-blue-600 hover:from-sky-300 hover:to-blue-500 text-slate-950 shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50"
               title="Generar y descargar archivo .pdf limpio"
             >
               {isGeneratingPDF ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                  <Loader2 className="w-4 h-4 animate-spin text-stone-950" />
                   <span>Generando PDF...</span>
                 </>
               ) : (
                 <>
-                  <Download className="w-4 h-4 text-slate-950" />
+                  <Download className="w-4 h-4 text-stone-950" />
                   <span>Descargar PDF</span>
                 </>
               )}

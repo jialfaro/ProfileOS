@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #060911;
-  --foreground: #f1f5f9;
+  --background: #0c0d12;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
@@ -11,53 +11,53 @@
 }
 
 body {
-  background: #060911;
-  color: #f1f5f9;
+  background: #0c0d12;
+  color: #f8fafc;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 15% 70%, rgba(16, 185, 129, 0.04) 0%, transparent 40%);
+    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212, 175, 55, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 25%, rgba(180, 130, 75, 0.05) 0%, transparent 45%),
+    radial-gradient(ellipse 50% 40% at 10% 70%, rgba(16, 185, 129, 0.03) 0%, transparent 40%);
   background-attachment: fixed;
 }
 
-/* Custom Refined Scrollbar */
+/* Custom Warm Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #060911;
+  background: #0c0d12;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #232733;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
+  background: #d4af37;
 }
 
-/* Glassmorphism & Surface Utilities */
+/* Glassmorphism & Surface Utilities with Warm Champagne Touch */
 .glass-panel {
-  background: rgba(13, 19, 33, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(18, 20, 29, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.45);
 }
 
 .glass-panel-subtle {
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(18, 20, 29, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .glass-card-interactive {
-  background: rgba(13, 19, 33, 0.65);
+  background: rgba(18, 20, 29, 0.65);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
@@ -65,126 +65,56 @@ body {
 }
 
 .glass-card-interactive:hover {
-  background: rgba(18, 26, 44, 0.85);
-  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(24, 27, 38, 0.85);
+  border-color: rgba(212, 175, 55, 0.35);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.5), 0 0 16px -2px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.5), 0 0 20px -2px rgba(212, 175, 55, 0.12);
 }
 
-/* ========================================================= */
-/* PRINT MEDIA STYLING (Strict ATS & Executive PDF Output)   */
-/* Ensures ONLY the CV document is printed, starting at p. 1 */
-/* ZERO blue borders, ZERO outlines, ZERO web chrome        */
-/* ========================================================= */
+/* Print Media Styling for Strict ATS */
 @media print {
   @page {
     margin: 8mm 12mm 8mm 12mm;
     size: A4 portrait;
   }
 
-  /* Reset document root to clean white canvas */
   html,
   body {
     background: #ffffff !important;
-    background-color: #ffffff !important;
-    color: #171717 !important;
-    font-size: 10pt !important;
-    line-height: 1.35 !important;
+    background-image: none !important;
+    color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
-    min-height: 0 !important;
-    height: auto !important;
-    overflow: visible !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+    width: 100% !important;
+    min-width: 100% !important;
   }
 
-  /* Force hide all web UI, headers, navigation, footers, 3D canvas, buttons, and sidebars */
   .no-print,
-  header.no-print,
-  footer.no-print,
   nav,
+  header,
+  footer,
   aside,
-  canvas,
   button,
-  #hero-section,
-  #timeline-section,
-  #adapter-section {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  /* Hide any element under body that is not main */
-  body > div > *:not(main) {
+  .debug-ui {
     display: none !important;
   }
 
-  /* Unconstrain main container */
-  main {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  /* Hide all siblings of #export-section or #cv-printable-area inside main */
-  main > *:not(#export-section):not(#cv-printable-area) {
-    display: none !important;
-  }
-
-  #export-section {
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    display: block !important;
-  }
-
-  #export-section > *:not(#cv-printable-area) {
-    display: none !important;
-  }
-
-  /* The printable CV sheet itself - Zero blue borders, pure print styling */
   #cv-printable-area {
     display: block !important;
     visibility: visible !important;
-    box-shadow: none !important;
-    border: none !important;
-    outline: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
+    position: static !important;
     margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    background: #ffffff !important;
-    color: #171717 !important;
-  }
-
-  /* Force all borders in print to be subtle neutral gray (no blue tint) */
-  #cv-printable-area * {
-    border-color: #d4d4d8 !important;
-    outline: none !important;
-  }
-
-  /* Prevent split of blocks across page breaks */
-  .cv-experience-block {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    margin-bottom: 8pt !important;
-  }
-
-  h1, h2, h3 {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    color: #0a0a0a !important;
-  }
-
-  /* Hyperlinks: Clean monochrome without underlines or blue colors */
-  a, a:visited, a:hover, a:active {
-    color: #171717 !important;
-    text-decoration: none !important;
+    box-shadow: none !important;
     border: none !important;
-    outline: none !important;
+    background: #ffffff !important;
+  }
+
+  #cv-printable-area * {
+    visibility: visible !important;
+    color: #111827 !important;
+    border-color: #d1d5db !important;
   }
 }

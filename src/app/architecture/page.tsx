@@ -19,26 +19,26 @@ export default function Architecture3DPage() {
   }
 
   return (
-    <div className="relative w-full h-screen bg-[#02040a] text-slate-100 overflow-hidden flex flex-col">
+    <div className="relative w-full h-screen bg-[#0c0d12] text-stone-100 overflow-hidden flex flex-col">
       {/* Top Navigation Bar */}
-      <header className="absolute top-0 inset-x-0 z-30 h-14 px-4 sm:px-8 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl flex items-center justify-between pointer-events-auto">
+      <header className="absolute top-0 inset-x-0 z-30 h-14 px-4 sm:px-8 border-b border-white/10 bg-[#0e1017]/80 backdrop-blur-xl flex items-center justify-between pointer-events-auto">
         <div className="flex items-center gap-3">
           <Link
             href="/"
             onClick={() => playTactileClick()}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-slate-900 border border-slate-700/80 hover:border-sky-500/50 transition-all group"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-sans text-stone-300 hover:text-white bg-stone-900/80 border border-stone-800 hover:border-amber-400/40 transition-all group"
           >
-            <ArrowLeft className="w-3.5 h-3.5 text-slate-400 group-hover:-translate-x-0.5 group-hover:text-sky-400 transition-transform" />
+            <ArrowLeft className="w-3.5 h-3.5 text-stone-400 group-hover:-translate-x-0.5 group-hover:text-amber-400 transition-transform" />
             <span>Volver a ProfileOS</span>
           </Link>
 
-          <span className="h-4 w-px bg-slate-800 hidden sm:block" />
+          <span className="h-4 w-px bg-stone-800 hidden sm:block" />
 
           <div className="hidden sm:flex items-center gap-2">
-            <span className="text-xs font-mono font-bold text-slate-200">
+            <span className="text-xs font-sans font-bold text-stone-200">
               Estación 3D de Arquitectura Empresarial
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800/40">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-sans bg-emerald-950/80 text-emerald-300 border border-emerald-800/50">
               Verificado BCP · Rímac · Mambu
             </span>
           </div>
@@ -49,9 +49,9 @@ export default function Architecture3DPage() {
           <Link
             href="/cv"
             onClick={() => playTactileClick()}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-sky-300 bg-sky-950/60 border border-sky-800/60 hover:bg-sky-900/60 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold text-stone-950 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 shadow-md transition-all active:scale-95"
           >
-            <FileText className="w-3.5 h-3.5 text-sky-400" />
+            <FileText className="w-3.5 h-3.5" />
             <span>Descargar CV</span>
           </Link>
         </div>

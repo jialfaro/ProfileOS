@@ -36,20 +36,20 @@ export const ArchitectureInspector: React.FC<ArchitectureInspectorProps> = ({
 
   return (
     <aside 
-      className="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#070b14]/95 border-l border-white/10 shadow-2xl backdrop-blur-2xl flex flex-col transition-all duration-300 overflow-hidden"
+      className="no-print fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-[#0e1017]/95 border-l border-amber-500/20 shadow-2xl backdrop-blur-2xl flex flex-col transition-all duration-300 overflow-hidden"
       aria-label="Inspector de Arquitectura"
     >
       {/* Top Bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/50 backdrop-blur-md">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-stone-950/60 backdrop-blur-md">
         <div className="flex items-center gap-2">
           <div 
             className="w-3 h-3 rounded-full animate-pulse shadow-sm"
             style={{ backgroundColor: node.color }}
           />
-          <span className="text-xs font-sans font-semibold uppercase tracking-wider text-slate-300">
+          <span className="text-xs font-sans font-semibold uppercase tracking-wider text-amber-200">
             {node.layer}
           </span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/50">
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full font-sans bg-emerald-950/80 text-emerald-300 border border-emerald-800/50">
             {node.status}
           </span>
         </div>
@@ -59,7 +59,7 @@ export const ArchitectureInspector: React.FC<ArchitectureInspectorProps> = ({
             playTactileClick();
             onClose();
           }}
-          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+          className="p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800/80 transition-colors"
           aria-label="Cerrar Inspector"
         >
           <X className="w-5 h-5" />

@@ -60,14 +60,14 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
       
       {/* Section Header */}
       <div className="space-y-3 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle text-sky-400 text-xs font-sans">
-          <Layers className="w-3.5 h-3.5 text-sky-400" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle text-amber-400 text-xs font-sans">
+          <Layers className="w-3.5 h-3.5 text-amber-400" />
           <span className="font-medium">Historial Arquitectónico & Decisiones Técnicas</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">
           Trayectoria Profesional Comprobada
         </h2>
-        <p className="text-sm sm:text-base text-slate-300 max-w-3xl font-sans">
+        <p className="text-sm sm:text-base text-stone-300 max-w-3xl font-sans">
           Evidencia de impacto directo en squads bancarios y aseguradores, estructurada bajo la fórmula de logro técnico verificable (acción + alcance + decisión + impacto verificable).
         </p>
       </div>
@@ -77,7 +77,7 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
         
         {/* Domain Filter */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-slate-400 font-sans font-medium mr-2">Sector:</span>
+          <span className="text-xs text-stone-400 font-sans font-medium mr-2">Sector:</span>
           {domains.map((dom) => (
             <button
               key={dom}
@@ -87,8 +87,8 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
               }}
               className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all ${
                 domainFilter === dom
-                  ? "bg-sky-500/20 text-sky-300 border border-sky-500/50 shadow-sm"
-                  : "bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  ? "bg-amber-500/20 text-amber-200 border border-amber-500/50 shadow-sm"
+                  : "bg-stone-900/40 text-stone-400 hover:text-stone-200 border border-white/5"
               }`}
             >
               {dom}
@@ -98,7 +98,7 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
         {/* Specialty Filter */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/5">
-          <span className="text-xs text-slate-400 font-sans font-medium mr-2">Especialidad:</span>
+          <span className="text-xs text-stone-400 font-sans font-medium mr-2">Especialidad:</span>
           {specialties.map((spec) => (
             <button
               key={spec}
@@ -106,10 +106,10 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
                 playTactileClick();
                 setSpecialtyFilter(spec);
               }}
-              className={`px-3 py-1 rounded-xl text-xs font-sans font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all ${
                 specialtyFilter === spec
-                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/50 shadow-sm"
-                  : "bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  ? "bg-amber-500/20 text-amber-200 border border-amber-500/50 shadow-sm"
+                  : "bg-stone-900/40 text-stone-400 hover:text-stone-200 border border-white/5"
               }`}
             >
               {spec}
@@ -130,7 +130,7 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
               key={exp.id}
               className={`rounded-2xl transition-all duration-300 overflow-hidden ${
                 isExpanded
-                  ? "glass-panel border-sky-500/40 shadow-xl shadow-sky-500/5"
+                  ? "glass-panel border-amber-500/40 shadow-xl shadow-amber-500/5"
                   : "glass-card-interactive"
               }`}
             >
@@ -141,13 +141,13 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
               >
                 <div className="flex items-start gap-4">
                   {/* Monogram Badge */}
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 flex items-center justify-center font-bold font-mono text-sm text-sky-400 shrink-0 shadow-md">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stone-800 to-stone-900 border border-amber-500/30 flex items-center justify-center font-bold font-mono text-sm text-amber-300 shrink-0 shadow-md">
                     {initials}
                   </div>
 
                   <div className="space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-bold text-lg sm:text-xl text-white font-sans group-hover:text-sky-300 transition-colors">
+                      <h3 className="font-bold text-lg sm:text-xl text-white font-sans group-hover:text-amber-200 transition-colors">
                         {exp.role}
                       </h3>
                       {exp.client && (
@@ -155,22 +155,22 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
                           Cliente: {exp.client}
                         </span>
                       )}
-                      <span className="px-2 py-0.5 text-[11px] font-mono rounded-md bg-slate-800/80 text-slate-300 border border-slate-700">
+                      <span className="px-2 py-0.5 text-[11px] font-sans rounded-md bg-stone-800/80 text-stone-300 border border-stone-700">
                         {exp.domain}
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-sans">
-                      <span className="flex items-center gap-1.5 font-medium text-slate-200">
-                        <Building2 className="w-3.5 h-3.5 text-sky-400" />
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-stone-400 font-sans">
+                      <span className="flex items-center gap-1.5 font-medium text-stone-200">
+                        <Building2 className="w-3.5 h-3.5 text-amber-400" />
                         {exp.company}
                       </span>
-                      <span className="flex items-center gap-1.5 font-mono text-slate-300">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                      <span className="flex items-center gap-1.5 text-stone-300">
+                        <Calendar className="w-3.5 h-3.5 text-stone-500" />
                         {exp.period}
                       </span>
-                      <span className="flex items-center gap-1.5 text-slate-400">
-                        <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                      <span className="flex items-center gap-1.5 text-stone-400">
+                        <MapPin className="w-3.5 h-3.5 text-stone-500" />
                         {exp.location}
                       </span>
                     </div>
@@ -182,14 +182,14 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
                     {exp.specialties.map((s) => (
                       <span
                         key={s}
-                        className="px-2 py-0.5 text-[11px] font-sans font-medium rounded-full bg-slate-800/80 text-sky-300 border border-slate-700/60"
+                        className="px-2.5 py-0.5 text-[11px] font-sans font-medium rounded-full bg-stone-800/80 text-amber-200/90 border border-amber-500/20"
                       >
                         {s}
                       </span>
                     ))}
                   </div>
 
-                  <div className="p-2 rounded-xl bg-slate-800/60 text-slate-400 group-hover:text-white transition-colors">
+                  <div className="p-2 rounded-xl bg-stone-800/60 text-stone-400 group-hover:text-white transition-colors">
                     {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                   </div>
                 </div>
@@ -200,24 +200,24 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
                 <div className="px-5 pb-6 sm:px-6 space-y-6 border-t border-white/5 pt-5 animate-in fade-in duration-200">
                   
                   {/* Verified Summary Callout */}
-                  <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-sm text-slate-300 font-sans leading-relaxed italic border-l-4 border-l-sky-500">
+                  <div className="p-4 rounded-xl bg-stone-950/70 border border-stone-800 text-sm text-stone-300 font-sans leading-relaxed italic border-l-4 border-l-amber-500">
                     "{exp.summary}"
                   </div>
 
                   {/* Bullet Points with Technical Formula */}
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-stone-400 uppercase tracking-wider">
                       <Award className="w-4 h-4 text-emerald-400" />
                       <span>Logros Comprobables & Responsabilidades:</span>
                     </div>
                     <ul className="space-y-3">
                       {exp.bulletPoints.map((bp, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-300 leading-relaxed font-sans">
+                        <li key={i} className="flex items-start gap-3 text-sm text-stone-300 leading-relaxed font-sans">
                           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <div>
                             <span className="font-semibold text-white">{bp.action} </span>
                             <span>{bp.scope}, </span>
-                            <span className="text-sky-300 font-medium">{bp.impact}.</span>
+                            <span className="text-amber-300 font-medium">{bp.impact}.</span>
                           </div>
                         </li>
                       ))}
@@ -226,14 +226,14 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
                   {/* Architecture Decisions (ADRs) */}
                   {exp.architectureDecisions && exp.architectureDecisions.length > 0 && (
-                    <div className="p-4 rounded-xl bg-slate-950/80 border border-amber-900/30 space-y-2.5">
+                    <div className="p-4 rounded-xl bg-stone-950/80 border border-amber-900/30 space-y-2.5">
                       <div className="flex items-center gap-2 text-xs font-mono font-semibold text-amber-300 uppercase tracking-wider">
                         <GitBranch className="w-4 h-4" />
                         <span>Decisiones Técnicas Clave (ADRs Evaluados):</span>
                       </div>
                       <ul className="space-y-2">
                         {exp.architectureDecisions.map((adr, index) => (
-                          <li key={index} className="text-xs text-slate-300 font-sans leading-relaxed flex items-start gap-2">
+                          <li key={index} className="text-xs text-stone-300 font-sans leading-relaxed flex items-start gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
                             <span>{adr}</span>
                           </li>
@@ -244,15 +244,15 @@ export const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
                   {/* Tech Stack Pills */}
                   <div className="space-y-2 pt-1 border-t border-white/5">
-                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
-                      <Code2 className="w-4 h-4 text-purple-400" />
+                    <div className="flex items-center gap-2 text-xs font-mono font-semibold text-stone-400 uppercase tracking-wider">
+                      <Code2 className="w-4 h-4 text-amber-400" />
                       <span>Tecnologías & Protocolos Aplicados:</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 text-xs font-mono rounded-lg bg-slate-900 text-slate-200 border border-slate-800"
+                          className="px-2.5 py-1 text-xs font-mono rounded-lg bg-stone-900 text-stone-200 border border-stone-800"
                         >
                           {tech}
                         </span>

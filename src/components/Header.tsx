@@ -57,31 +57,31 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
           onClick={() => handleNav("hero")}
           className="flex items-center gap-3 cursor-pointer group select-none"
         >
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/80 shadow-md group-hover:border-sky-400/60 transition-all duration-300">
-            <Cpu className="w-5 h-5 text-sky-400 group-hover:scale-110 transition-transform duration-300" />
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-stone-800 to-stone-900 border border-amber-500/30 shadow-md group-hover:border-amber-400/60 transition-all duration-300">
+            <Cpu className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform duration-300" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
             </span>
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-100 tracking-tight text-sm sm:text-base font-sans">
+              <span className="font-bold text-stone-100 tracking-tight text-sm sm:text-base font-sans">
                 Alexis Alfaro
               </span>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded-full bg-sky-950/80 text-sky-300 border border-sky-800/50">
+              <span className="px-2 py-0.5 text-[10px] font-sans font-medium rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">
                 Arquitecto TI
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-sans hidden sm:block">
+            <p className="text-[11px] text-stone-400 font-sans hidden sm:block">
               Soluciones & Integración Cloud
             </p>
           </div>
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-950/50 p-1 rounded-xl border border-slate-800/80">
+        <nav className="hidden md:flex items-center gap-1 bg-stone-950/60 p-1 rounded-xl border border-white/5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -91,11 +91,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
                 onClick={() => handleNav(item.id)}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium transition-all ${
                   isActive
-                    ? "bg-slate-800/90 text-sky-300 shadow-sm border border-slate-700/70"
-                    : "text-slate-400 hover:text-slate-100 hover:bg-slate-900/60"
+                    ? "bg-stone-800/90 text-amber-200 shadow-sm border border-stone-700/80"
+                    : "text-stone-400 hover:text-stone-100 hover:bg-stone-900/60"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-sky-400" : "text-slate-400"}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-amber-400" : "text-stone-400"}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -110,8 +110,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
             onClick={handleToggleSound}
             className={`p-2 rounded-xl border text-xs transition-all ${
               muted
-                ? "bg-slate-900/50 border-slate-800 text-slate-500 hover:text-slate-300"
-                : "bg-slate-900/80 border-sky-500/40 text-sky-400 hover:bg-slate-800 shadow-sm shadow-sky-500/10"
+                ? "bg-stone-900/50 border-stone-800 text-stone-500 hover:text-stone-300"
+                : "bg-stone-900/80 border-amber-500/30 text-amber-400 hover:bg-stone-800 shadow-sm shadow-amber-500/10"
             }`}
             title={muted ? "Activar audio táctil" : "Silenciar audio"}
             aria-label="Toggle sound"
@@ -122,7 +122,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
           {/* Quick PDF Action */}
           <button
             onClick={() => handleNav("export")}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 border border-sky-400/30 transition-all hover:scale-[1.02] active:scale-95"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 shadow-lg shadow-amber-500/20 border border-amber-400/40 transition-all hover:scale-[1.02] active:scale-95"
           >
             <Download className="w-3.5 h-3.5" />
             <span className="font-sans">Descargar CV</span>
@@ -131,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
           {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-white"
+            className="md:hidden p-2 rounded-xl bg-stone-900/60 border border-stone-800 text-stone-300 hover:text-white"
             aria-label="Abrir menú"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -153,11 +153,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, activeSection }) => 
                 onClick={() => handleNav(item.id)}
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-sans font-medium transition-all text-left ${
                   isActive
-                    ? "bg-sky-500/15 text-sky-300 border border-sky-500/40"
-                    : "text-slate-300 hover:bg-slate-800/60"
+                    ? "bg-amber-500/15 text-amber-200 border border-amber-500/40"
+                    : "text-stone-300 hover:bg-stone-800/60"
                 }`}
               >
-                <Icon className="w-4 h-4 text-sky-400" />
+                <Icon className="w-4 h-4 text-amber-400" />
                 <span>{item.label}</span>
               </button>
             );

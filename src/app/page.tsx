@@ -71,7 +71,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#02040a] text-slate-100 flex flex-col selection:bg-sky-500/25 selection:text-sky-200">
+    <div className="relative min-h-screen bg-[#0c0d12] text-stone-100 flex flex-col selection:bg-amber-500/25 selection:text-amber-200">
       
       {/* 3D Spatial Architecture Canvas */}
       <ThreeCanvas 
@@ -111,11 +111,11 @@ export default function Home() {
                 <h2 className="text-base sm:text-lg font-bold font-sans text-white uppercase tracking-tight">
                   Máquina 3D de Arquitectura Empresarial
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-sky-950/80 text-sky-300 border border-sky-800/60 hidden sm:inline-block">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-sans bg-amber-500/10 text-amber-300 border border-amber-500/30 hidden sm:inline-block">
                   Procedural Three.js CAD
                 </span>
               </div>
-              <p className="text-xs font-sans text-slate-300 max-w-2xl leading-relaxed">
+              <p className="text-xs font-sans text-stone-300 max-w-2xl leading-relaxed">
                 Inspección interactiva de los 5 núcleos de arquitectura de Alexis: Gateway Zero-Trust (BCP), Streaming Kafka (Mambu), Dominio Spring Boot, Observabilidad Dynatrace y Gobierno Multi-Cloud.
               </p>
             </div>
@@ -124,16 +124,16 @@ export default function Home() {
               <Link
                 href="/architecture"
                 onClick={() => playTactileClick()}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/40 text-xs font-sans font-medium transition-all group"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-sans font-medium transition-all group"
               >
-                <Maximize2 className="w-3.5 h-3.5 text-sky-400 group-hover:scale-110 transition-transform" />
+                <Maximize2 className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
                 <span>Pantalla Completa</span>
               </Link>
             </div>
           </div>
 
           {/* 3D Machine Frame */}
-          <div className="relative w-full h-[620px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#02040a]">
+          <div className="relative w-full h-[620px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#0c0d12]">
             <ArchitectureMachine3D
               height="100%"
               selectedStation={selectedNodeId || undefined}

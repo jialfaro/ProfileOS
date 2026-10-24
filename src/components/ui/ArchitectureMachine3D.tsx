@@ -206,7 +206,7 @@ export default function ArchitectureMachine3D({
       {/* Top HUD Telemetry Bar */}
       <header className="absolute top-4 inset-x-4 sm:inset-x-8 flex items-center justify-between z-20 pointer-events-none">
         <div className="flex items-center gap-3 pointer-events-auto">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/40 text-sky-400 shadow-lg shadow-sky-500/20 backdrop-blur-md">
+          <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 shadow-lg shadow-amber-500/15 backdrop-blur-md">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
               <polyline points="2 17 12 22 22 17" />
@@ -215,46 +215,46 @@ export default function ArchitectureMachine3D({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold tracking-wider text-slate-100 uppercase">
+              <span className="text-xs font-sans font-bold tracking-wider text-stone-100 uppercase">
                 ProfileOS Engine 3D
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-sky-950 text-sky-300 border border-sky-800/60">
-                v2.4 CAD
+              <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-medium bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                CAD Executive
               </span>
             </div>
-            <p className="text-[11px] font-mono text-slate-400">
+            <p className="text-[11px] font-sans text-stone-400">
               Arquitectura Empresarial · Alexis Alfaro Salazar
             </p>
           </div>
         </div>
 
         {/* Status Indicator */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 backdrop-blur-md text-xs font-mono pointer-events-auto">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-slate-300">TIER-1 CORE: ONLINE</span>
-          <span className="h-3 w-px bg-slate-700" />
-          <span className="text-sky-400">5 MÓDULOS ACTIVOS</span>
+        <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-subtle text-xs font-sans pointer-events-auto">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-stone-300">TIER-1 CORE: ONLINE</span>
+          <span className="h-3 w-px bg-stone-700" />
+          <span className="text-amber-300 font-medium">5 MÓDULOS ACTIVOS</span>
         </div>
       </header>
 
       {/* Floating Hover Tooltip */}
       {hoveredStation && (
         <div
-          className="absolute bottom-28 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-4 py-2.5 rounded-xl bg-slate-950/90 border border-slate-700 shadow-2xl backdrop-blur-xl text-center space-y-1 animate-in fade-in zoom-in-95 duration-150"
+          className="absolute bottom-28 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-4 py-2.5 rounded-2xl bg-[#12141c]/95 border border-amber-500/30 shadow-2xl backdrop-blur-xl text-center space-y-1 animate-in fade-in zoom-in-95 duration-150"
         >
           <div className="flex items-center justify-center gap-2">
             <span
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: hoveredStation.hexColor }}
             />
-            <span className="text-xs font-mono font-bold text-slate-100">
+            <span className="text-xs font-sans font-bold text-stone-100">
               {hoveredStation.title}
             </span>
           </div>
-          <p className="text-[11px] font-mono text-sky-300">
-            {hoveredStation.subtitle} · <span className="text-slate-400">{hoveredStation.client}</span>
+          <p className="text-[11px] font-sans text-amber-200">
+            {hoveredStation.subtitle} · <span className="text-stone-400">{hoveredStation.client}</span>
           </p>
-          <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-mono">
+          <div className="flex items-center justify-center gap-1.5 text-[10px] text-stone-400 font-sans">
             <span>Click para inspeccionar ADRs y decisiones de arquitectura</span>
           </div>
         </div>
@@ -287,7 +287,7 @@ export default function ArchitectureMachine3D({
       <footer className="absolute bottom-4 inset-x-4 sm:inset-x-8 flex flex-col sm:flex-row items-center justify-between gap-3 z-20 pointer-events-none">
         
         {/* Mode Selector */}
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-950/85 border border-slate-800/90 shadow-2xl backdrop-blur-xl pointer-events-auto">
+        <div className="flex items-center gap-1 p-1 rounded-2xl glass-panel pointer-events-auto">
           {(
             [
               { id: 'assembled', label: 'Ensamblado', icon: 'M4 6h16M4 12h16M4 18h16' },
@@ -299,10 +299,10 @@ export default function ArchitectureMachine3D({
             <button
               key={mode.id}
               onClick={() => handleModeChange(mode.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all ${
                 activeMode === mode.id
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-500/50 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 border border-transparent'
+                  ? 'bg-amber-500/20 text-amber-200 border border-amber-500/40 shadow-sm'
+                  : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/60 border border-transparent'
               }`}
             >
               <span>{mode.label}</span>
@@ -311,8 +311,8 @@ export default function ArchitectureMachine3D({
         </div>
 
         {/* Camera Views & Play/Pause */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950/85 border border-slate-800/90 shadow-2xl backdrop-blur-xl pointer-events-auto text-xs font-mono">
-          <span className="text-[10px] text-slate-500 px-2 font-bold uppercase tracking-wider">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl glass-panel pointer-events-auto text-xs font-sans">
+          <span className="text-[10px] text-stone-500 px-2 font-bold uppercase tracking-wider">
             CÁMARA
           </span>
           {(
@@ -327,23 +327,23 @@ export default function ArchitectureMachine3D({
             <button
               key={cam.id}
               onClick={() => handleCameraChange(cam.id)}
-              className={`px-2.5 py-1 rounded-md transition-all ${
+              className={`px-2.5 py-1 rounded-lg transition-all ${
                 activeCamera === cam.id
-                  ? 'bg-slate-800 text-sky-400 border border-slate-700'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-stone-800 text-amber-300 border border-stone-700'
+                  : 'text-stone-400 hover:text-stone-200'
               }`}
             >
               {cam.label}
             </button>
           ))}
 
-          <span className="h-4 w-px bg-slate-800 mx-1" />
+          <span className="h-4 w-px bg-stone-800 mx-1" />
 
           {/* Play/Pause */}
           <button
             onClick={handleTogglePlay}
             aria-label={isPlaying ? 'Pausar animación' : 'Reanudar animación'}
-            className="p-1.5 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-stone-400 hover:text-stone-100 hover:bg-stone-800 transition-colors"
           >
             {isPlaying ? (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -426,7 +426,7 @@ function initArchitectureMachine(
 
   // Scene & Camera
   const scene = new THREE.Scene()
-  scene.fog = new THREE.FogExp2(0x02040a, 0.022)
+  scene.fog = new THREE.FogExp2(0x0c0d12, 0.022)
 
   const camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 150)
   camera.position.set(0, 16, 26)
@@ -461,49 +461,49 @@ function initArchitectureMachine(
   controls.maxDistance = 45
   controls.target.set(0, 0.8, 0)
 
-  // Lighting Rig
-  const hemiLight = new THREE.HemisphereLight(0x38bdf8, 0x0f172a, 1.4)
+  // Lighting Rig with Warm Champagne Tone
+  const hemiLight = new THREE.HemisphereLight(0xfff5ea, 0x16141a, 1.3)
   scene.add(hemiLight)
 
-  const keyLight = new THREE.DirectionalLight(0xffffff, 3.5)
+  const keyLight = new THREE.DirectionalLight(0xfffbf2, 3.6)
   keyLight.position.set(-6, 18, 10)
   keyLight.castShadow = true
   keyLight.shadow.mapSize.set(2048, 2048)
   keyLight.shadow.bias = -0.0001
   scene.add(keyLight)
 
-  const fillLight = new THREE.DirectionalLight(0x38bdf8, 1.8)
+  const fillLight = new THREE.DirectionalLight(0xe5c07b, 1.6)
   fillLight.position.set(8, 12, -8)
   scene.add(fillLight)
 
-  const groundGrid = new THREE.GridHelper(40, 40, 0x1e293b, 0x0f172a)
+  const groundGrid = new THREE.GridHelper(40, 40, 0x242228, 0x121115)
   groundGrid.position.y = -0.45
   scene.add(groundGrid)
 
   // Materials Library
   const materials = {
     chassisDark: new THREE.MeshStandardMaterial({
-      color: 0x0d131f,
+      color: 0x13151f,
       metalness: 0.85,
       roughness: 0.35,
     }),
     chassisPlate: new THREE.MeshStandardMaterial({
-      color: 0x151e2e,
+      color: 0x1c1f2b,
       metalness: 0.75,
       roughness: 0.45,
     }),
     steelChrome: new THREE.MeshStandardMaterial({
-      color: 0xe2e8f0,
+      color: 0xf1f5f9,
       metalness: 0.95,
       roughness: 0.15,
     }),
     goldConductor: new THREE.MeshStandardMaterial({
-      color: 0xf59e0b,
+      color: 0xd4af37,
       metalness: 0.9,
       roughness: 0.25,
     }),
     darkGlass: new THREE.MeshPhysicalMaterial({
-      color: 0x0f172a,
+      color: 0x14161f,
       metalness: 0.1,
       roughness: 0.1,
       transmission: 0.85,
@@ -515,7 +515,7 @@ function initArchitectureMachine(
       color: 0x38bdf8,
     }),
     amberGlow: new THREE.MeshBasicMaterial({
-      color: 0xf59e0b,
+      color: 0xd4af37,
     }),
     purpleGlow: new THREE.MeshBasicMaterial({
       color: 0xa855f7,
@@ -625,16 +625,16 @@ function initArchitectureMachine(
   const highwayCurve = new THREE.CatmullRomCurve3(highwayPoints, true)
   const tubeGeo = new THREE.TubeGeometry(highwayCurve, 120, 0.05, 8, true)
   const highwayMat = new THREE.MeshBasicMaterial({
-    color: 0x38bdf8,
+    color: 0xd4af37,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.75,
   })
   const highwayTube = new THREE.Mesh(tubeGeo, highwayMat)
   machineGroup.add(highwayTube)
 
   // Flow Packet Capsule (Active in Flow Mode)
   const packetGeo = new THREE.SphereGeometry(0.22, 16, 16)
-  const packetMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+  const packetMat = new THREE.MeshBasicMaterial({ color: 0xffe082 })
   const packetMesh = new THREE.Mesh(packetGeo, packetMat)
   packetMesh.visible = false
   machineGroup.add(packetMesh)
