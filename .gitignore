@@ -18,3 +18,6 @@ it-architecture-career-agent/
 # Personal CV source documents (keep local to protect personal contact info)
 *.pdf
 *.docx
+
+# Public CV linked from the portfolio
+!assets/Alexis-Alfaro-CV.pdf

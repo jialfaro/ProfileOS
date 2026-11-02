@@ -1,0 +1,128 @@
+[
+  {
+    "company": "OM Technology Group",
+    "file": "om.png",
+    "source_url": "https://om-technologygroup.com/",
+    "asset_url": "https://om-technologygroup.com/wp-content/uploads/sites/13/2020/08/Logos-OM-Technology-Blanco.png",
+    "size_bytes": 15191,
+    "content_type": "image/png",
+    "status": "verified",
+    "identity_evidence_url": "https://cr.linkedin.com/company/om-technology-group",
+    "identity_note": "Perfil corporativo confirma oficina Lima/Miraflores y especialidad Integrador de MAMBU.",
+    "sha256": "031a4baa05999d211164120e6813efa6e5d4da434729642a6e7b93457250f7dc",
+    "verified_format": "png",
+    "dimensions": [
+      640,
+      480
+    ]
+  },
+  {
+    "company": "RIMAC",
+    "file": "rimac.svg",
+    "source_url": "https://www.rimac.com/",
+    "asset_url": "https://imagescdn.rimac.com/blt55de89b298bc8716/62056d8cfe1e3f147ecb52ff/Logo_RIMAC.svg",
+    "size_bytes": 1580,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "sha256": "983dd3529dd2ac4f39d7d94bbd4cca9e8f1f770c9cf4c2d8c027d224ebaae3f1",
+    "verified_format": "svg",
+    "viewBox": "0 0 168 28",
+    "svg_issues": []
+  },
+  {
+    "company": "Laureate",
+    "file": "laureate.svg",
+    "source_url": "https://www.laureate.net/",
+    "asset_url": "https://cdn.prod.website-files.com/6567406fc1ef619e6df4a67e/686bc4bad93bc71893ae27ce_3%20Laureate%20Logo%20(main)(white).svg",
+    "size_bytes": 2247,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "sha256": "bf612f099f5c243d085a9227a0712d59c609fa3d8a5015f9e49953b158ccdbcb",
+    "verified_format": "svg",
+    "viewBox": "0 0 847.01 135.71",
+    "svg_issues": []
+  },
+  {
+    "company": "Softnet",
+    "file": "softnet.svg",
+    "source_url": "https://soft-net.com.pe/",
+    "asset_url": "https://soft-net.com.pe/wp-content/uploads/logo-softnet-white.svg",
+    "size_bytes": 17338,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "identity_evidence_url": "https://soft-net.com.pe/servicios/servicios-gestionados-ti/",
+    "identity_note": "Caso oficial Edyficar y Mibanco, empresa ubicada en San Isidro, Perú.",
+    "sha256": "e1ef44a3e4e84dd7b9dfae535a4a2f5edb519eeae310fdfbe3ececa8422ef2a9",
+    "verified_format": "svg",
+    "viewBox": "0 0 195 48",
+    "svg_issues": []
+  },
+  {
+    "company": "Mibanco",
+    "file": "mibanco.svg",
+    "source_url": "https://www.mibanco.com.pe/",
+    "asset_url": "https://cdn.modyo.cloud/uploads/78ef2d63-d977-4d2b-8e75-8aa7dcafc1dc/original/logo-mibanco.svg",
+    "size_bytes": 5842,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "sha256": "745432a3dc3f83ca83277ea65a3959c9c79e69edaff114768d7848891aa6cd50",
+    "verified_format": "svg",
+    "viewBox": "0 0 103 52",
+    "svg_issues": []
+  },
+  {
+    "company": "Indra",
+    "file": "indra.svg",
+    "source_url": "https://www.indragroup.com/es/sobre-indra/nuestras-marcas",
+    "asset_url": "https://www.indragroup.com/cms-content/2025/06/indra-group-logo.svg",
+    "size_bytes": 3436,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "note": "Logo corporativo actual Indra Group, versión blanca oficial.",
+    "sha256": "7b220f2199581a5ac7444132d90b6d1a933eec2b0d10b809a7887d1cd400c4b3",
+    "verified_format": "svg",
+    "viewBox": "0 0 149 32",
+    "svg_issues": []
+  },
+  {
+    "company": "Experis",
+    "file": "experis.png",
+    "source_url": "https://www.experis.pe/",
+    "asset_url": "https://www.experis.pe/wps/wcm/connect/experis/933daaa3-d9f4-4949-afe7-c51777381169/EXP_Logo_RGB_HOR_WHT_1.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_2802IK01OORA70QUFIPQ192LN7-933daaa3-d9f4-4949-afe7-c51777381169-pVyywdk",
+    "size_bytes": 23636,
+    "content_type": "image/png",
+    "status": "verified",
+    "sha256": "7db85136296ddb620b570f7159c59e62c0bbdf7a404f9122cd30bd0ae14f924d",
+    "verified_format": "png",
+    "dimensions": [
+      784,
+      257
+    ]
+  },
+  {
+    "company": "TCS",
+    "file": "tcs.svg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Tcs-logo-1.svg",
+    "asset_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Tcs-logo-1.svg",
+    "size_bytes": 9697,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "sha256": "6169dc6fcbbb0310727346cf789b9b50d6e9777ede1508154fa58f647c1f6e0a",
+    "verified_format": "svg",
+    "viewBox": "0 0 174 58",
+    "svg_issues": []
+  },
+  {
+    "company": "BCP",
+    "file": "bcp.svg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Logo-bcp-vector.svg",
+    "asset_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Logo-bcp-vector.svg",
+    "size_bytes": 2866,
+    "content_type": "image/svg+xml",
+    "status": "verified",
+    "sha256": "132e564914fb5741e8266d50eb4d0f145aac6d52c367deff5826304dad16417a",
+    "verified_format": "svg",
+    "viewBox": "0 0 1000 252",
+    "svg_issues": []
+  }
+]

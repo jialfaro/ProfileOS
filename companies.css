@@ -1,0 +1,58 @@
+.profile .companies {
+  display: block;
+  margin-top: clamp(56px, 7vw, 100px);
+}
+.companies h3 {
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.company-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 clamp(16px, 3vw, 48px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.company-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 116px;
+  padding: 15px 8px;
+  border-top: 1px solid #393631;
+}
+.company-logo {
+  width: auto;
+  height: auto;
+  max-width: min(78%, 155px);
+  max-height: 40px;
+  object-fit: contain;
+}
+.logo-tcs { filter: invert(1); max-height: 49px; }
+.logo-om { max-height: 68px; }
+.logo-mibanco { max-height: 46px; }
+.logo-bcp { filter: brightness(0) invert(.95); max-width: min(65%, 105px); }
+.company-client {
+  position: absolute;
+  bottom: 9px;
+  inset-inline: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+@media (max-width: 540px) {
+  .company-list { gap: 0 12px; }
+  .company-cell { min-height: 93px; padding-inline: 0; }
+  .company-logo { max-width: 89%; max-height: 30px; }
+  .logo-tcs { max-height: 38px; }
+  .logo-om { max-height: 56px; }
+  .logo-mibanco { max-height: 37px; }
+  .logo-bcp { max-width: 68%; }
+  .company-client { bottom: 7px; font-size: 10px; }
+}
+@media (max-width: 359px) {
+  .company-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

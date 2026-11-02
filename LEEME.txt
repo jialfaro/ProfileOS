@@ -1,0 +1,9 @@
+PORTAFOLIO DE ALEXIS ALFARO SALAZAR
+
+Abre index.html con doble clic. Si aparece el código, abre el archivo con Safari, Chrome, Edge o Firefox. Conserva el archivo junto a la carpeta assets y los demás archivos del sitio.
+
+La portada, el video, los logos, las fuentes y el CV están incluidos. Los enlaces a GitHub, WhatsApp y LinkedIn abren servicios externos y requieren conexión.
+
+En la portada puedes alternar entre la animación y el retrato. El sitio respeta la preferencia de movimiento reducido de tu dispositivo.
+
+Para actualizar el contenido, edita index.html y content.js con un editor de texto. La licencia del video está en assets/video/LICENSE.txt y las de las tipografías están en assets/fonts. Las fuentes de los logos figuran en assets/companies/sources.json.
