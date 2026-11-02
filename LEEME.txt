@@ -6,4 +6,4 @@ La portada, el video, los logos, las fuentes y el CV están incluidos. Los enlac
 
 En la portada puedes alternar entre la animación y el retrato. El sitio respeta la preferencia de movimiento reducido de tu dispositivo.
 
-Para actualizar el contenido, edita index.html y content.js con un editor de texto. La licencia del video está en assets/video/LICENSE.txt y las de las tipografías están en assets/fonts. Las fuentes de los logos figuran en assets/companies/sources.json.
+Para actualizar el contenido, edita index.html y content.js con un editor de texto. El video de la portada, assets/video/alexis.mp4, anima un personaje creado a partir del retrato de Alexis. El video de referencia se conserva en assets/video/cinematic.mp4, con su licencia en assets/video/LICENSE.txt. Las licencias de las tipografías están en assets/fonts. Las fuentes de los logos figuran en assets/companies/sources.json.
