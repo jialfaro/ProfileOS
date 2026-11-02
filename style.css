@@ -85,19 +85,21 @@ html.motion-paused{scroll-behavior:auto}.motion-paused *,.motion-paused *:before
 .nav-github svg { width: 20px; height: 20px; }
 nav { align-items: center; }
 .profile-portrait {
-  max-width: 360px;
+  max-width: 340px;
   margin: 0 0 22px;
-  position: relative;
 }
-.profile-portrait img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 98% 40%; }
+.profile-portrait img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: center bottom;
+  background: radial-gradient(ellipse at 55% 38%, #37251b, #191512 62%, #100f0e);
+}
 .profile-portrait figcaption {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  padding: 2px 7px;
-  color: #f9f4ef;
-  background: rgb(8 8 8 / 78%);
-  font-size: 11px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
 }
 .profile-stat { display: flex; align-items: center; gap: 18px; }
 .profile-stat .large-number { font-size: clamp(60px, 6.3vw, 90px); }
@@ -115,7 +117,6 @@ nav { align-items: center; }
   .hero-media-controls { top: 305px; bottom: auto; }
   .hero-media-controls button { font-size: 11px; padding-inline: 12px; }
   .profile-facts { display: block; padding: 0; }
-  .profile-portrait { max-width: 440px; }
   .profile-stat .large-number { font-size: 70px; }
   .profile-facts a { margin-top: 8px; }
 }
