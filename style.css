@@ -120,3 +120,16 @@ nav { align-items: center; }
   .profile-stat .large-number { font-size: 70px; }
   .profile-facts a { margin-top: 8px; }
 }
+
+
+.profile-meta a { text-decoration: underline; text-underline-offset: 3px; }
+@media (min-width: 761px) {
+  .case-card[data-category="ia"]:not([hidden]) {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px;
+    align-items: center;
+  }
+  .case-card[data-category="ia"] .case-meta { margin-top: 0; }
+}
